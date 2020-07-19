@@ -1,6 +1,9 @@
 -- Drinking game stuff
 
 DRINKS = {}
+MAXDRINK = 1
+SHOTVAL = 1
+DRINKVAL = 0.1
 
 -- ply steamid -> drinks table for disconnected players who might reconnect
 DRINKS.RememberedPlayers = {}
@@ -31,8 +34,16 @@ function DRINKS.AddDrink(ply)
 	ply:SetLiveDrinks((ply:GetLiveDrinks() or 0) + 1)
 end
 
+function DRINKS.RemoveDrink(ply)
+	ply:SetLiveDrinks(ply:GetLiveDrinks() - 1)
+end
+
 function DRINKS.AddShot(ply)
-	ply:SetLiveShots((ply:SetLiveShots() or 0) + 1)
+	ply:SetLiveShots((ply:GetLiveShots() or 0) + 1)
+end
+
+function DRINKS.RemoveShot(ply)
+	ply:SetLiveShots(ply:GetLiveShots() - 1)
 end
 
 function DRINKS.Rebase()
@@ -106,7 +117,7 @@ function DRINKS.NotifyPlayers()
 	local deathmessage = DRINKS.CreateDrinkMessage("ttt_drinking_death", "death", "dying at the hands of an enemy.")
 	local teamkillmessage = DRINKS.CreateDrinkMessage("ttt_drinking_team_kill", "teamkill", "killing allies.")
 	local suicidemessage = DRINKS.CreateDrinkMessage("ttt_drinking_suicide", "suicide", "committing suicide.")
-	local jesterkillmessage = DRINKS.CreateDrinkMessage("ttt_drinking_jester_kill", "jesterkill", "killing the jester.")
+	local jesterkillmessage = DRINKS.CreateDrinkMessage("shot", "jesterkill", "killing the jester, and everyone else takes a drink.")
 	local goldengunmessage = DRINKS.CreateDrinkMessage("shot", "goldengun", "dying to the golden gun.")
 	
 	for _, ply in pairs(player.GetAll()) do

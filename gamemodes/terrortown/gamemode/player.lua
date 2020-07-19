@@ -845,11 +845,12 @@ function GM:DoPlayerDeath(ply, attacker, dmginfo)
 						DRINKS.AddPlayerAction("teamkill", attacker)
 					end
 				elseif ply:IsRole(ROLE_JESTER) or ply:IsRole(ROLE_SWAPPER) then
-					if GetConVar("ttt_drinking_jester_kill"):GetString() == "drink" then
-						DRINKS.AddDrink(attacker)
-					elseif GetConVar("ttt_drinking_jester_kill"):GetString() == "shot" then
-						DRINKS.AddShot(attacker)
+					for _, m in pairs(player.GetAll()) do
+						DRINKS.AddDrink(m)
 					end
+					DRINKS.RemoveDrink(attacker)
+					DRINKS.RemoveDrink(ply)
+					DRINKS.AddShot(attacker)
 					DRINKS.AddPlayerAction("jesterkill", attacker)
 				elseif ply:IsRole(ROLE_KILLER) then
 					if GetConVar("ttt_drinking_death"):GetString() == "drink" then
