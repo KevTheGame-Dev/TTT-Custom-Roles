@@ -815,16 +815,16 @@ function GM:DoPlayerDeath(ply, attacker, dmginfo)
 		KARMA.Killed(attacker, ply, dmginfo)
 		if not (IsValid(attacker) and attacker:IsPlayer() and attacker == ply) then
 			if IsValid(attacker) and attacker:IsPlayer() then
-				ply:PrintMessage(HUD_PRINTCENTER, "begin checks")
+				ply:PrintMessage(HUD_PRINTTALK, "begin checks")
 				if ply:IsRole(ROLE_ASSASSIN) then
-					ply:PrintMessage(HUD_PRINTCENTER, "Assassin Check")
+					ply:PrintMessage(HUD_PRINTTALK, "Assassin Check")
 					if attacker:Nick() == assassintarget then
-						ply:PrintMessage(HUD_PRINTCENTER, "Target check")
+						ply:PrintMessage(HUD_PRINTTALK, "Target check")
 						DRINKS.AddShot(ply)
 						DRINKS.RemoveDrink(ply)
-						ply:PrintMessage(HUD_PRINTCENTER, "Drink assigned")
+						ply:PrintMessage(HUD_PRINTTALK, "Drink assigned")
 						DRINKS.AddPlayerAction("assassindeath", ply)
-						ply:PrintMessage(HUD_PRINTCENTER, "player action logged")
+						ply:PrintMessage(HUD_PRINTTALK, "player action logged")
 					end
 				end
 				if ply:IsRole(ROLE_INNOCENT) or ply:IsRole(ROLE_DETECTIVE) or ply:IsRole(ROLE_GLITCH) or ply:IsRole(ROLE_MERCENARY) or ply:IsRole(ROLE_PHANTOM) then
