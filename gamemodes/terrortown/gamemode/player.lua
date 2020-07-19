@@ -37,6 +37,7 @@ function GM:PlayerInitialSpawn(ply)
 		SendSwapperList()
 		SendAssassinList()
 		SendKillerList()
+		SendCannibalList()
 	end
 	
 	-- Game has started, tell this gusy where the round is at
@@ -55,6 +56,7 @@ function GM:PlayerInitialSpawn(ply)
 		SendSwapperList(ply)
 		SendAssassinList(ply)
 		SendKillerList(ply)
+		SendCannibalList(ply)
 	end
 	
 	-- Handle spec bots
@@ -844,7 +846,7 @@ function GM:DoPlayerDeath(ply, attacker, dmginfo)
 						end
 						DRINKS.AddPlayerAction("teamkill", attacker)
 					end
-				elseif ply:IsRole(ROLE_JESTER) or ply:IsRole(ROLE_SWAPPER) then
+				elseif ply:IsRole(ROLE_JESTER) or ply:IsRole(ROLE_SWAPPER) or ply:IsRole(ROLE_CANNIBAL) then
 					if GetConVar("ttt_drinking_jester_kill"):GetString() == "drink" then
 						DRINKS.AddDrink(attacker)
 					elseif GetConVar("ttt_drinking_jester_kill"):GetString() == "shot" then
@@ -1081,7 +1083,7 @@ function GM:ScalePlayerDamage(ply, hitgroup, dmginfo)
 		dmginfo:ScaleDamage(0.7)
 	end
 	
-	if (ply:GetRole() == ROLE_JESTER or ply:GetRole() == ROLE_SWAPPER) and GetRoundState() >= ROUND_ACTIVE then
+	if (ply:GetRole() == ROLE_JESTER or ply:GetRole() == ROLE_SWAPPER or ply:GetRole() == ROLE_CANNIBAL) and GetRoundState() >= ROUND_ACTIVE then
 		if dmginfo:IsBulletDamage() or dmginfo:IsFallDamage() or dmginfo:IsDamageType(1) or dmginfo:IsDamageType(128) then
 		
 		else
@@ -1089,11 +1091,11 @@ function GM:ScalePlayerDamage(ply, hitgroup, dmginfo)
 		end
 	end
 	
-	if (ply:GetRole() == ROLE_JESTER or ply:GetRole() == ROLE_SWAPPER) and GetRoundState() >= ROUND_ACTIVE and dmginfo:IsExplosionDamage() then
+	if (ply:GetRole() == ROLE_JESTER or ply:GetRole() == ROLE_SWAPPER or ply:GetRole() == ROLE_CANNIBAL) and GetRoundState() >= ROUND_ACTIVE and dmginfo:IsExplosionDamage() then
 		dmginfo:ScaleDamage(0)
 	end
 	
-	if ply:IsPlayer() and dmginfo:GetAttacker():IsPlayer() and (dmginfo:GetAttacker():GetRole() == ROLE_JESTER or dmginfo:GetAttacker():GetRole() == ROLE_SWAPPER) and GetRoundState() >= ROUND_ACTIVE then
+	if ply:IsPlayer() and dmginfo:GetAttacker():IsPlayer() and (dmginfo:GetAttacker():GetRole() == ROLE_JESTER or dmginfo:GetAttacker():GetRole() == ROLE_SWAPPER or dmginfo:GetAttacker():GetRole() == ROLE_CANNIBAL) and GetRoundState() >= ROUND_ACTIVE then
 		dmginfo:ScaleDamage(0)
 	end
 	
@@ -1149,7 +1151,7 @@ local fallsounds = {
 };
 
 function GM:OnPlayerHitGround(ply, in_water, on_floater, speed)
-	if (ply:GetRole() == ROLE_JESTER or ply:GetRole() == ROLE_SWAPPER) and GetRoundState() >= ROUND_ACTIVE then
+	if (ply:GetRole() == ROLE_JESTER or ply:GetRole() == ROLE_SWAPPER or ply:GetRole() == ROLE_CANNIBAL) and GetRoundState() >= ROUND_ACTIVE then
 	else
 		if in_water or speed < 450 or not IsValid(ply) then return end
 		
@@ -1243,7 +1245,7 @@ function GM:EntityTakeDamage(ent, dmginfo)
 				end
 			end
 		end
-		if (ent:IsPlayer() and (ent:GetRole() == ROLE_JESTER or ent:GetRole() == ROLE_SWAPPER) and GetRoundState() >= ROUND_ACTIVE) then
+		if (ent:IsPlayer() and (ent:GetRole() == ROLE_JESTER or ent:GetRole() == ROLE_SWAPPER or ent:GetRole() == ROLE_CANNIBAL) and GetRoundState() >= ROUND_ACTIVE) then
 			
 			if dmginfo:IsExplosionDamage() or dmginfo:IsDamageType(DMG_BURN) or dmginfo:IsDamageType(DMG_CRUSH) or dmginfo:IsDamageType(DMG_FALL) or dmginfo:IsDamageType(DMG_DROWN) then -- check its burn or explosion.
 				dmginfo:ScaleDamage(0) -- no damages
@@ -1257,7 +1259,7 @@ function GM:EntityTakeDamage(ent, dmginfo)
 	if not IsValid(ent) then return end
 	local att = dmginfo:GetAttacker()
 	
-	if att:IsPlayer() and (att:GetRole() == ROLE_JESTER or att:GetRole() == ROLE_SWAPPER) and GetRoundState() >= ROUND_ACTIVE then
+	if att:IsPlayer() and (att:GetRole() == ROLE_JESTER or att:GetRole() == ROLE_SWAPPER or att:GetRole() == ROLE_CANNIBAL) and GetRoundState() >= ROUND_ACTIVE then
 		dmginfo:ScaleDamage(0)
 		dmginfo:SetDamage(0)
 	end

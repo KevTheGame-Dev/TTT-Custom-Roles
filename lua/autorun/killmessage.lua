@@ -15,6 +15,7 @@ if (CLIENT) then
 		local SwapperColor = Color(111, 0, 255)
 		local AssassinColor = Color(112, 50, 0)
 		local KillerColor = Color(50, 0, 70)
+		local CannibalColor = Color(176, 137, 54)
 		
 		local NameColor = Color(142, 68, 173)
 		local UnknownColor = Color(152, 48, 196)
@@ -64,6 +65,9 @@ if (CLIENT) then
 		elseif role == ROLE_KILLER then
 			col = KillerColor
 			role = "a killer"
+		elseif role == ROLE_CANNIBAL then
+			col = CannibalColor
+			role = "a cannibal"
 		else
 			col = InnoColor
 			role = "innocent"

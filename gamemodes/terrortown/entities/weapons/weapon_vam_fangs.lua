@@ -13,7 +13,7 @@ if CLIENT then
 	SWEP.UseHands = true
 end
 
-SWEP.InLoadoutFor = { ROLE_VAMPIRE }
+SWEP.InLoadoutFor = { ROLE_VAMPIRE, ROLE_CANNIBAL }
 
 SWEP.Base = "weapon_tttbase"
 
@@ -187,6 +187,10 @@ function SWEP:Think()
 			self:DropBones()
 			
 			self.TargetRagdoll:Remove()
+
+			if self:GetOwner():IsCannibal() then
+				self:GetOwner():SetNWInt("BodiesEaten", self:GetOwner():GetNWInt("BodiesEaten", 0) + 1)
+			end
 		end
 	end
 end

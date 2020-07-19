@@ -51,6 +51,10 @@ local function isKiller(ply)
 	return ply:GetKiller()
 end
 
+local function isCannibal(ply)
+	return ply:GetCannibal()
+end
+
 local math = math
 
 cvars.AddChangeCallback("ttt_karma_max", function(cvar, old, new)
@@ -184,6 +188,13 @@ function KARMA.Hurt(attacker, victim, dmginfo)
 		if IsDebug() then
 			print(Format("%s (%f) attacked the jester %s (%f) for %d and got penalised for %f", attacker:Nick(), attacker:GetLiveKarma(), victim:Nick(), victim:GetLiveKarma(), hurt_amount, penalty))
 		end
+	elseif isCannibal(victim) then
+		local reward = KARMA.GetHurtReward(hurt_amount)
+		reward = KARMA.GiveReward(attacker, reward)
+		
+		if IsDebug() then
+			print(Format("%s (%f) attacked %s (%f) for %d and got REWARDED %f", attacker:Nick(), attacker:GetLiveKarma(), victim:Nick(), victim:GetLiveKarma(), hurt_amount, reward))
+		end
 	end
 end
 
@@ -231,6 +242,13 @@ function KARMA.Killed(attacker, victim, dmginfo)
 		
 		if IsDebug() then
 			print(Format("%s (%f) killed the jester %s (%f) and gets penalised for %f", attacker:Nick(), attacker:GetLiveKarma(), victim:Nick(), victim:GetLiveKarma(), penalty))
+		end
+	elseif isCannibal(victim) then
+		local reward = KARMA.GetKillReward()
+		reward = KARMA.GiveReward(attacker, reward)
+		
+		if IsDebug() then
+			print(Format("%s (%f) killed %s (%f) and gets REWARDED %f", attacker:Nick(), attacker:GetLiveKarma(), victim:Nick(), victim:GetLiveKarma(), reward))
 		end
 	end
 end

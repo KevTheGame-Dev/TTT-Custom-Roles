@@ -85,6 +85,8 @@ local function IdentifyBody(ply, rag)
 			roletext = "body_found_a"
 		elseif role == ROLE_KILLER then
 			roletext = "body_found_k"
+		elseif role == ROLE_CANNIBAL then
+			roletext = "body_found_c"
 		else
 			roletext = "body_found_i"
 		end

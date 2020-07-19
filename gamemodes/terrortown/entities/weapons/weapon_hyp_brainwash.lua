@@ -234,7 +234,7 @@ if SERVER then
 		
 		if not ply then self:Error("INVALID TARGET") return end
 		
-		if ply:GetSwapper() or ply:GetJester() then self:Error("SUBJECT IS A JESTER") return end
+		if ply:GetSwapper() or ply:GetJester() or ply:GetCannibal() then self:Error("SUBJECT IS A JESTER") return end
 		
 		self:SetState(DEFIB_BUSY)
 		self:SetBegin(CurTime())
@@ -281,7 +281,7 @@ if SERVER then
 					self:Error("INSUFFICIENT ROOM")
 					return
 				end
-			elseif ent:IsPlayer() and ent:IsActive() and (ent:GetRole() == ROLE_JESTER or ent:GetRole() == ROLE_SWAPPER) and not ent:IsFrozen() then
+			elseif ent:IsPlayer() and ent:IsActive() and (ent:GetRole() == ROLE_JESTER or ent:GetRole() == ROLE_SWAPPER or ent:GetRole() == ROLE_CANNIBAL) and not ent:IsFrozen() then
 				self:SetNextPrimaryFire(CurTime() + 0.1)
 				ent:EmitSound(zap, 100, math.random(98, 102))
 				ent:Freeze(true)
