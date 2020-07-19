@@ -815,6 +815,12 @@ function GM:DoPlayerDeath(ply, attacker, dmginfo)
 		KARMA.Killed(attacker, ply, dmginfo)
 		if not (IsValid(attacker) and attacker:IsPlayer() and attacker == ply) then
 			if IsValid(attacker) and attacker:IsPlayer() then
+				if ply:IsRole(ROLE_ASSASSIN) then
+					if attacker:Nick() == assassintarget then
+						DRINKS.AddShot(ply)
+						DRINKS.AddPlayerAction("assassindeath", ply)
+					end
+				end
 				if ply:IsRole(ROLE_INNOCENT) or ply:IsRole(ROLE_DETECTIVE) or ply:IsRole(ROLE_GLITCH) or ply:IsRole(ROLE_MERCENARY) or ply:IsRole(ROLE_PHANTOM) then
 					if attacker:IsRole(ROLE_INNOCENT) or attacker:IsRole(ROLE_DETECTIVE) or attacker:IsRole(ROLE_GLITCH) or attacker:IsRole(ROLE_MERCENARY) or attacker:IsRole(ROLE_PHANTOM) then
 						if GetConVar("ttt_drinking_team_kill"):GetString() == "drink" then
@@ -862,11 +868,6 @@ function GM:DoPlayerDeath(ply, attacker, dmginfo)
 						DRINKS.AddShot(ply)
 					end
 					DRINKS.AddPlayerAction("death", attacker)
-				elseif ply:IsRole(ROLE_ASSASSIN) then
-					if attacker:Nick() == assassintarget then
-						DRINKS.AddShot(ply)
-						DRINKS.AddPlayerAction("assassindeath", ply)
-					end	
 				end
 			else
 				if GetConVar("ttt_drinking_suicide"):GetString() == "drink" then
