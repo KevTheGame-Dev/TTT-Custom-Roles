@@ -33,8 +33,8 @@ function DRINKS.IsEnabled()
 	return GetGlobalBool("ttt_drinking_enabled", false)
 end
 
-function DRINKS.AddDrink(ply)
-	ply:SetLiveDrinks((ply:GetLiveDrinks() or 0) + 1)
+function DRINKS.AddDrink(ply, drinks=1)
+	ply:SetLiveDrinks((ply:GetLiveDrinks() or 0) + drinks)
 end
 
 function DRINKS.RemoveDrink(ply)
