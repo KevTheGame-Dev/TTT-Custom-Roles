@@ -863,7 +863,7 @@ function GM:DoPlayerDeath(ply, attacker, dmginfo)
 					end
 					DRINKS.AddPlayerAction("death", attacker)
 				elseif ply:IsRole(ROLE_ASSASSIN) then
-					if attacker:Nick() == ply:GetNWString("AssassinTarget", "") then
+					if attacker:Nick() == assassintarget then
 						DRINKS.AddShot(ply)
 						DRINKS.AddPlayerAction("assassindeath", ply)
 					end	
