@@ -1241,7 +1241,7 @@ function GM:EntityTakeDamage(ent, dmginfo)
 				if ent:Nick() == assassintarget then
 					assassinbonus = 2
 				else
-					assassinbonus = 0.5
+					assassinbonus = 0.7
 				end
 			end
 		end
