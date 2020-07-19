@@ -190,6 +190,12 @@ function SWEP:Think()
 
 			if self:GetOwner():IsCannibal() then
 				self:GetOwner():SetNWInt("BodiesEaten", self:GetOwner():GetNWInt("BodiesEaten", 0) + 1)
+				local bodies_left_to_eat = math.floor(player.GetCount() / 2) - self:GetOwner():GetNWInt("BodiesEaten", 0)
+				if bodies_left_to_eat > 1 then
+					self:GetOwner():PrintMessage(HUD_PRINTCENTER,  "You hunger for " .. bodies_left_to_eat .. " more humans")
+				elseif bodies_left_to_eat == 1 then
+					self:GetOwner():PrintMessage(HUD_PRINTCENTER,  "Your hunger is almost sated.")
+				end
 			end
 		end
 	end

@@ -887,7 +887,7 @@ function PrintResultMessage(type)
 		LANG.Msg("killer")
 		ServerLog("Result: Killer wins.\n")
 	elseif type == WIN_CANNIBAL then
-		LANG.msg("win_cannibal")
+		LANG.Msg("win_cannibal")
 		ServerLog("Result: Cannibal wins. \n")
 	else
 		ServerLog("Result: Unknown victory condition!\n")
@@ -1057,7 +1057,7 @@ function GM:TTTCheckForWin()
 			return WIN_NONE --early out
 		end
 	end
-	
+
 	if traitor_alive and not innocent_alive and not killer_alive and not cannibal_alive and jester_alive then
 		return WIN_TRAITOR
 	elseif traitor_alive and not innocent_alive and not killer_alive and not cannibal_alive and not jester_alive and jesterkilled == 0 then
