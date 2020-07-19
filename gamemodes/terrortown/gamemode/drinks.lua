@@ -124,7 +124,7 @@ function DRINKS.NotifyPlayers()
 	local jesterkillmessage = DRINKS.CreateDrinkMessage("shot", "jesterkill", "killing the jester, and everyone else takes a drink.")
 	local goldengunmessage = DRINKS.CreateDrinkMessage("shot", "goldengun", "dying to the golden gun.")
 	local assassindeathmessage = DRINKS.CreateDrinkMessage("drink", "assassindeath", "dying to their target.")
-	local assassinmixupmessage = DRINKS.CreateDrinkMessage("drink", "assassinmixup", "killing someone who isn't their target.")
+	local assassinmixupmessage = DRINKS.CreateDrinkMessage("shot", "assassinmixup", "killing someone who isn't their target.")
 	
 	for _, ply in pairs(player.GetAll()) do
 		if deathmessage then ply:PrintMessage(HUD_PRINTTALK, deathmessage) end
