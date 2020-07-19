@@ -17,6 +17,7 @@ DRINKS.PlayerActions["jesterkill"] = {}
 DRINKS.PlayerActions["goldengun"] = {}
 DRINKS.PlayerActions["assassindeath"] = {}
 DRINKS.PlayerActions["assassinmixup"] = {}
+DRINKS.PlayerActions["zombiedetective"] = {}
 
 -- Convars, more convenient access than GetConVar bla bla
 DRINKS.cv = {}
@@ -77,6 +78,7 @@ function DRINKS.ResetPlayerActions()
 	DRINKS.PlayerActions["goldengun"] = {}
 	DRINKS.PlayerActions["assassindeath"] = {}
 	DRINKS.PlayerActions["assassinmixup"] = {}
+	DRINKS.PlayerActions["zombiedetective"] = {}
 end
 
 function DRINKS.CreateDrinkMessage(convar, key, message)
@@ -125,6 +127,7 @@ function DRINKS.NotifyPlayers()
 	local goldengunmessage = DRINKS.CreateDrinkMessage("shot", "goldengun", "dying to the golden gun.")
 	local assassindeathmessage = DRINKS.CreateDrinkMessage("drink", "assassindeath", "dying to their target.")
 	local assassinmixupmessage = DRINKS.CreateDrinkMessage("shot", "assassinmixup", "killing someone who isn't their target.")
+	local zombiedetectivemessage = DRINKS.CreateDrinkMessage("shot", "zombiedetective", "getting zombified as detective. Nice knife, idiot")
 	
 	for _, ply in pairs(player.GetAll()) do
 		if deathmessage then ply:PrintMessage(HUD_PRINTTALK, deathmessage) end
@@ -134,6 +137,7 @@ function DRINKS.NotifyPlayers()
 		if goldengunmessage then ply:PrintMessage(HUD_PRINTTALK, goldengunmessage) end
 		if assassindeathmessage then ply:PrintMessage(HUD_PRINTTALK, assassindeathmessage) end
 		if assassinmixupmessage then ply:PrintMessage(HUD_PRINTTALK, assassinmixupmessage) end
+		if zombiedetectivemessage then ply:PrintMessage(HUD_PRINTTALK, zombiedetectivemessage) end
 		
 		if (ply:GetLiveDrinks() and ply:GetLiveDrinks() > ply:GetBaseDrinks()) or (ply:GetLiveShots() and ply:GetLiveShots() > ply:GetBaseShots()) then
 			ply:PrintMessage(HUD_PRINTTALK, "You must take " .. ((ply:GetLiveDrinks() or 0) - (ply:GetBaseDrinks() or 0)) .. " drink(s) and " .. ((ply:GetLiveShots() or 0) - (ply:GetBaseShots() or 0)) .. " shot(s).")

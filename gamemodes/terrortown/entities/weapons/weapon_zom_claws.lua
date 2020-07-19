@@ -79,6 +79,10 @@ function SWEP:PrimaryAttack()
 		if hitEnt and hitEnt:IsValid() then
 			if hitEnt:IsPlayer() and not hitEnt:IsZombie() then
 				if hitEnt:Health() <= 50 and not hitEnt:IsJester() and not hitEnt:IsSwapper() then
+					if hitEnt:IsDetective() then
+						DRINKS.AddShot(hitEnt)
+						DRINKS.AddPlayerAction("zombiedetective", hitEnt)
+					end
 					self:GetOwner():AddCredits(1)
 					LANG.Msg(self:GetOwner(), "credit_zom", { num = 1 })
 					hitEnt:PrintMessage(HUD_PRINTCENTER, "You will respawn as a zombie in 3 seconds.")
