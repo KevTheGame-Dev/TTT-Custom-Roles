@@ -887,7 +887,7 @@ function PrintResultMessage(type)
 		LANG.Msg("killer")
 		ServerLog("Result: Killer wins.\n")
 	elseif type == WIN_CANNIBAL then
-		LANG.msg("cannibal")
+		LANG.msg("win_cannibal")
 		ServerLog("Result: Cannibal wins. \n")
 	else
 		ServerLog("Result: Unknown victory condition!\n")
@@ -1074,7 +1074,7 @@ function GM:TTTCheckForWin()
 		return WIN_TRAITOR
 	elseif not traitor_alive and not innocent_alive and not cannibal_alive and killer_alive then
 		return WIN_KILLER
-	elseif cannibal_alive and jester_alive and cannibal_eat_count >= math.ceil(player:GetCount() / 2) then
+	elseif cannibal_alive and cannibal_eat_count >= math.floor(player:GetCount() / 2) then
 		return WIN_CANNIBAL
 	elseif not jester_alive and jesterkilled == 1 then
 		-- ultimately if no one is alive, traitors win

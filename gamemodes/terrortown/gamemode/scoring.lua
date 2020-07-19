@@ -132,7 +132,7 @@ function SCORE:HandleSelection()
 			table.insert(assassins, ply:SteamID())
 		elseif ply:GetKiller() then
 			table.insert(killers, ply:SteamID())
-		elseif ply:GetCannibals() then
+		elseif ply:GetCannibal() then
 			table.insert(cannibals, ply:SteamID())
 		end
 	end

@@ -14,7 +14,7 @@ function GM:PlayerCanPickupWeapon(ply, wep)
 		return false
 	elseif not ply:GetHypnotist() and wep:GetClass() == "weapon_hyp_brainwash" then
 		return false
-	elseif (not ply:GetVampire() or not ply:GetCannibal()) and wep:GetClass() == "weapon_vam_fangs" then
+	elseif not (ply:GetVampire() or ply:GetCannibal()) and wep:GetClass() == "weapon_vam_fangs" then
 		return false
 	elseif not ply:GetZombie() and wep:GetClass() == "weapon_zom_claws" then
 		return false

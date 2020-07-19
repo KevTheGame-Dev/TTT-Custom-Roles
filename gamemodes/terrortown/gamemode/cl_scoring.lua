@@ -662,7 +662,7 @@ function CLSCORE:Init(events)
 		end
 	end
 	
-	scores = ScoreEventLog(events, scores, traitors, detectives, hypnotist, mercenary, jester, phantom, glitch, zombie, vampire, swapper, assassin, killer)
+	scores = ScoreEventLog(events, scores, traitors, detectives, hypnotist, mercenary, jester, phantom, glitch, zombie, vampire, swapper, assassin, killer, cannibal)
 	
 	self.Players = nicks
 	self.Scores = scores
