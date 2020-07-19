@@ -758,7 +758,8 @@ function GM:DoPlayerDeath(ply, attacker, dmginfo)
 		if attacker:GetRole() == ROLE_ASSASSIN then
 			if ply:Nick() ~= assassintarget and assassintarget ~= "" then
 				attacker:PrintMessage(HUD_PRINTCENTER, "Contract failed. You killed the wrong player.")
-				DRINKS.AddDrink(attacker, 2)
+				DRINKS.AddDrink(attacker)
+				DRINKS.AddDrink(attacker)
 				DRINKS.AddPlayerAction("assassinmixup", attacker)
 				attacker:SetNWString("AssassinTarget", "")
 			end
@@ -824,7 +825,8 @@ function GM:DoPlayerDeath(ply, attacker, dmginfo)
 				if ply:IsRole(ROLE_INNOCENT) or ply:IsRole(ROLE_DETECTIVE) or ply:IsRole(ROLE_GLITCH) or ply:IsRole(ROLE_MERCENARY) or ply:IsRole(ROLE_PHANTOM) then
 					if attacker:IsRole(ROLE_INNOCENT) or attacker:IsRole(ROLE_DETECTIVE) or attacker:IsRole(ROLE_GLITCH) or attacker:IsRole(ROLE_MERCENARY) or attacker:IsRole(ROLE_PHANTOM) then
 						if GetConVar("ttt_drinking_team_kill"):GetString() == "drink" then
-							DRINKS.AddDrink(attacker, 2)
+							DRINKS.AddDrink(attacker)
+							DRINKS.AddDrink(attacker)
 						elseif GetConVar("ttt_drinking_team_kill"):GetString() == "shot" then
 							DRINKS.AddShot(attacker)
 						end
@@ -847,7 +849,8 @@ function GM:DoPlayerDeath(ply, attacker, dmginfo)
 						DRINKS.AddPlayerAction("death", ply)
 					elseif attacker:IsRole(ROLE_TRAITOR) or attacker:IsRole(ROLE_ASSASSIN) or attacker:IsRole(ROLE_HYPNOTIST) or attacker:IsRole(ROLE_VAMPIRE) or attacker:IsRole(ROLE_ZOMBIE) then
 						if GetConVar("ttt_drinking_team_kill"):GetString() == "drink" then
-							DRINKS.AddDrink(attacker, 2)
+							DRINKS.AddDrink(attacker)
+							DRINKS.AddDrink(attacker)
 						elseif GetConVar("ttt_drinking_team_kill"):GetString() == "shot" then
 							DRINKS.AddShot(attacker)
 						end
