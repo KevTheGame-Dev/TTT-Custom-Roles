@@ -25,6 +25,7 @@ ROLE_VAMPIRE = 9
 ROLE_SWAPPER = 10
 ROLE_ASSASSIN = 11
 ROLE_KILLER = 12
+ROLE_CANNIBAL = 13
 ROLE_NONE = ROLE_INNOCENT
 
 -- Game event log defs
@@ -45,6 +46,7 @@ WIN_INNOCENT = 3
 WIN_TIMELIMIT = 4
 WIN_JESTER = 5
 WIN_KILLER = 6
+WIN_CANNIBAL = 7
 
 -- Weapon categories, you can only carry one of each
 WEAPON_NONE = 0
