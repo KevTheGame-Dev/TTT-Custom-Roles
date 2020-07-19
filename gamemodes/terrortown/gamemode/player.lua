@@ -758,6 +758,9 @@ function GM:DoPlayerDeath(ply, attacker, dmginfo)
 		if attacker:GetRole() == ROLE_ASSASSIN then
 			if ply:Nick() ~= assassintarget and assassintarget ~= "" then
 				attacker:PrintMessage(HUD_PRINTCENTER, "Contract failed. You killed the wrong player.")
+				DRINKS.AddDrink(attacker)
+				DRINKS.AddDrink(attacker)
+				DRINKS.AddPlayerAction("assassinmixup", attacker)
 				attacker:SetNWString("AssassinTarget", "")
 			end
 		end
@@ -859,6 +862,11 @@ function GM:DoPlayerDeath(ply, attacker, dmginfo)
 						DRINKS.AddShot(ply)
 					end
 					DRINKS.AddPlayerAction("death", attacker)
+				elseif ply:IsRole(ROLE_ASSASSIN) then
+					if attacker:Nick() == ply:GetNWString("AssassinTarget", "") then
+						DRINKS.AddShot(ply)
+						DRINKS.AddPlayerAction("assassindeath", ply)
+					end	
 				end
 			else
 				if GetConVar("ttt_drinking_suicide"):GetString() == "drink" then
