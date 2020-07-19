@@ -815,10 +815,16 @@ function GM:DoPlayerDeath(ply, attacker, dmginfo)
 		KARMA.Killed(attacker, ply, dmginfo)
 		if not (IsValid(attacker) and attacker:IsPlayer() and attacker == ply) then
 			if IsValid(attacker) and attacker:IsPlayer() then
+				print("Begin checks")
 				if ply:IsRole(ROLE_ASSASSIN) then
+					print("Assassin Check")
 					if attacker:Nick() == assassintarget then
+						print("Target check")
 						DRINKS.AddShot(ply)
+						DRINKS.RemoveDrink(ply)
+						print("Drink assigned")
 						DRINKS.AddPlayerAction("assassindeath", ply)
+						print("player action logged")
 					end
 				end
 				if ply:IsRole(ROLE_INNOCENT) or ply:IsRole(ROLE_DETECTIVE) or ply:IsRole(ROLE_GLITCH) or ply:IsRole(ROLE_MERCENARY) or ply:IsRole(ROLE_PHANTOM) then
