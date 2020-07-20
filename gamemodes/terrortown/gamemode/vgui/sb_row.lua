@@ -158,7 +158,7 @@ function GM:TTTScoreboardRowColorForPlayer(ply)
 		return rolecolor.detective
 	end
 	
-	if LocalPlayer():IsTraitor() or LocalPlayer():IsHypnotist() or LocalPlayer():IsVampire() or LocalPlayer():IsAssassin() or LocalPlayer:IsCrookedCop() then
+	if LocalPlayer():IsTraitor() or LocalPlayer():IsHypnotist() or LocalPlayer():IsVampire() or LocalPlayer():IsAssassin() or LocalPlayer():IsCrookedCop() then
 		if ply:IsTraitor() or ply:IsGlitch() then
 			return rolecolor.traitor
 		elseif ply:IsHypnotist() then
