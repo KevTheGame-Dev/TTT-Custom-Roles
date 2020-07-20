@@ -70,6 +70,14 @@ local function RoleChatRecv()
 			sender:Nick(),
 			Color(255, 255, 255),
 			": " .. text)
+
+	elseif role == ROLE_CROOKEDCOP then
+		chat.AddText(Color(153, 51, 102),
+			Format("(%s) ", string.upper(GetTranslation("crookedcop"))),
+			Color(153, 51, 102),
+			sender:Nick(),
+			Color(255, 255, 255),
+			": " .. text)
 	
 	elseif role == ROLE_DETECTIVE then
 		chat.AddText(Color(0, 0, 255),

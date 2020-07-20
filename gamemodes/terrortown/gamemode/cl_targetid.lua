@@ -88,6 +88,7 @@ function GM:PostDrawTranslucentRenderables()
 		indicator_matass_noz = Material("vgui/ttt/sprite_sym_ass_noz")
 		indicator_matkil_noz = Material("vgui/ttt/sprite_sym_kil_noz")
 		indicator_matcan_noz = Material("vgui/ttt/sprite_sym_can_noz")
+		indicator_matcro_noz = Material("vgui/ttt/sprite_sym_cro_noz")
 		indicator_mattra = Material("vgui/ttt/sprite_sym_tra")
 		indicator_matjes = Material("vgui/ttt/sprite_sym_jes")
 		indicator_mathyp = Material("vgui/ttt/sprite_sym_hyp")
@@ -102,6 +103,7 @@ function GM:PostDrawTranslucentRenderables()
 		indicator_matass = Material("vgui/ttt/sprite_sym_ass")
 		indicator_matkil = Material("vgui/ttt/sprite_sym_kil")
 		indicator_matcan = Material("vgui/ttt/sprite_sym_can")
+		indicator_matcro = Material("vgui/ttt/sprite_sym_cro")
 	else
 		indicator_mattra_noz = Material("vgui/ttt/sprite_let_tra_noz")
 		indicator_matjes_noz = Material("vgui/ttt/sprite_let_jes_noz")
@@ -117,6 +119,7 @@ function GM:PostDrawTranslucentRenderables()
 		indicator_matass_noz = Material("vgui/ttt/sprite_let_ass_noz")
 		indicator_matkil_noz = Material("vgui/ttt/sprite_let_kil_noz")
 		indicator_matcan_noz = Material("vgui/ttt/sprite_let_can_noz")
+		indicator_matcro_noz = Material("vgui/ttt/sprite_let_cro_noz")
 		indicator_mattra = Material("vgui/ttt/sprite_let_tra")
 		indicator_matjes = Material("vgui/ttt/sprite_let_jes")
 		indicator_mathyp = Material("vgui/ttt/sprite_let_hyp")
@@ -131,6 +134,7 @@ function GM:PostDrawTranslucentRenderables()
 		indicator_matass = Material("vgui/ttt/sprite_let_ass")
 		indicator_matkil = Material("vgui/ttt/sprite_let_kil")
 		indicator_matcan = Material("vgui/ttt/sprite_let_can")
+		indicator_matcro = Material("vgui/ttt/sprite_let_cro")
 	end
 	client = LocalPlayer()
 	plys = GetPlayers()
@@ -352,6 +356,7 @@ function GM:HUDDrawTargetID()
 	local target_swapper = false
 	local target_killer = false
 	local target_cannibal = false
+	local target_crookedcop = false
 	local target_fellow_traitor = false
 	local target_fellow_zombie = false
 	local target_current_target = false
@@ -446,7 +451,7 @@ function GM:HUDDrawTargetID()
 	
 	local w, h = 0, 0 -- text width/height, reused several times
 	
-	if target_innocent or target_detective or target_glitch or target_mercenary or target_phantom or target_traitor or target_assassin or target_hypnotist or target_vampire or target_zombie or target_jester or target_swapper or target_killer or target_cannibal or target_fellow_traitor or target_fellow_zombie then
+	if target_innocent or target_detective or target_glitch or target_mercenary or target_phantom or target_traitor or target_assassin or target_hypnotist or target_vampire or target_zombie or target_jester or target_swapper or target_killer or target_cannibal or target_crookedcop or target_fellow_traitor or target_fellow_zombie then
 		surface.SetTexture(ring_tex)
 		
 		if target_innocent then
@@ -477,6 +482,8 @@ function GM:HUDDrawTargetID()
 			surface.SetDrawColor(50, 0, 70, 200)
 		elseif target_cannibal then
 			surface.SetDrawColor(176, 137, 54, 200)
+		elseif target_crookedcop then
+			surface.SetDrawColor(153, 51, 102, 200)
 		end
 		surface.DrawTexturedRect(x - 32, y - 32, 64, 64)
 	end
@@ -609,6 +616,9 @@ function GM:HUDDrawTargetID()
 	elseif target_cannibal then
 		text = L.target_cannibal
 		clr = Color(176, 137, 54, 200)
+	elseif target_crookedcop then
+		text = L.target_crookedcop
+		clr = Color(153, 51, 102, 200)
 	elseif ent.sb_tag and ent.sb_tag.txt ~= nil then
 		text = L[ent.sb_tag.txt]
 		clr = ent.sb_tag.color

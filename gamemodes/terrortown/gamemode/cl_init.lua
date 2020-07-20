@@ -226,6 +226,7 @@ local function ReceiveRole()
 	elseif client:IsAssassin() then MsgN("ASSASSIN")
 	elseif client:IsKiller() then MsgN("KILLER")
 	elseif client:IsCannibal() then MsgN("CANNIBAL")
+	elseif client:IsCrookedCop() then MsgN("CROOKED COP")
 	else MsgN("INNOCENT")
 	end
 end

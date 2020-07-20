@@ -41,7 +41,7 @@ local col_active = {
 		[ROLE_SWAPPER] = Color(111, 0, 255, 255),
 		[ROLE_ASSASSIN] = Color(112, 50, 0, 255),
 		[ROLE_KILLER] = Color(50, 0, 70, 255),
-		[ROLE_CANNIBAL] = Color(176, 137, 54)
+		[ROLE_CANNIBAL] = Color(176, 137, 54),
 		[ROLE_CROOKEDCOP] = Color(153, 51, 102)
 	},
 	bg = Color(20, 20, 20, 250),
@@ -66,7 +66,7 @@ local col_dark = {
 		[ROLE_SWAPPER] = Color(111, 0, 255, 255),
 		[ROLE_ASSASSIN] = Color(112, 50, 0, 255),
 		[ROLE_KILLER] = Color(50, 0, 70, 255),
-		[ROLE_CANNIBAL] = Color(176, 137, 54)
+		[ROLE_CANNIBAL] = Color(176, 137, 54),
 		[ROLE_CROOKEDCOP] = Color(153, 51, 102)
 	},
 	bg = Color(20, 20, 20, 200),

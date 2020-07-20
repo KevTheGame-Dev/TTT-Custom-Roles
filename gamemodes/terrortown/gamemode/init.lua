@@ -91,6 +91,7 @@ CreateConVar("ttt_swapper_enabled", "1")
 CreateConVar("ttt_assassin_enabled", "1")
 CreateConVar("ttt_killer_enabled", "1")
 CreateConVar("ttt_cannibal_enabled", "1")
+CreateConVar("ttt_crookedcop_enabled", "1")
 
 CreateConVar("ttt_zombie_chance", "0.1")
 CreateConVar("ttt_hypnotist_chance", "0.2")
@@ -103,6 +104,7 @@ CreateConVar("ttt_jester_chance", "0.25")
 CreateConVar("ttt_swapper_chance", "0.25")
 CreateConVar("ttt_killer_chance", "0.25")
 CreateConVar("ttt_cannibal_chance", "0.25")
+CreateConVar("ttt_crookedcop_chance", "0.2")
 
 CreateConVar("ttt_mercenary_required_innos", "2")
 CreateConVar("ttt_hypnotist_required_traitors", "2")
@@ -626,7 +628,7 @@ function TellTraitorsAboutTraitors()
 	local jesternick = {}
 	local killernick = {}
 	for k, v in pairs(player.GetAll()) do
-		if v:IsTraitor() or v:IsHypnotist() or v:IsVampire() or v:IsZombie() or v:IsAssassin() then
+		if v:IsTraitor() or v:IsHypnotist() or v:IsVampire() or v:IsZombie() or v:IsAssassin() or v:IsCrookedCop() then
 			table.insert(traitornicks, v:Nick())
 		elseif v:IsGlitch() then
 			table.insert(traitornicks, v:Nick())
@@ -937,7 +939,7 @@ function LogScore(type)
 	end
 	
 	local roundRoles = { false, false, false, false, false, false, false, false, false, false, false, false }
-	local roleNames = { "Innocent", "Traitor", "Detective", "Mercenary", "Jester", "Phantom", "Hypnotist", "Glitch", "Zombie", "Vampire", "Swapper", "Assassin", "Killer", "Cannibal" }
+	local roleNames = { "Innocent", "Traitor", "Detective", "Mercenary", "Jester", "Phantom", "Hypnotist", "Glitch", "Zombie", "Vampire", "Swapper", "Assassin", "Killer", "Cannibal", "CrookedCop" }
 	
 	for k, v in pairs(player.GetAll()) do
 		local didWin = ((type == WIN_INNOCENT or type == WIN_TIMELIMIT) and (v:GetRole() == ROLE_INNOCENT or v:GetRole() == ROLE_DETECTIVE or v:GetRole() == ROLE_GLITCH or v:GetRole() == ROLE_MERCENARY or v:GetRole() == ROLE_PHANTOM)) or (type == WIN_TRAITOR and (v:GetRole() == ROLE_TRAITOR or v:GetRole() == ROLE_ASSASSIN or v:GetRole() == ROLE_HYPNOTIST or v:GetRole() == ROLE_VAMPIRE or v:GetRole() == ROLE_ZOMBIE)) or (type == WIN_JESTER and (v:GetRole() == ROLE_JESTER or v:GetRole() == ROLE_SWAPPER)) or (type == WIN_CANNIBAL and v:GetRole() == ROLE_CANNIBAL)
@@ -1038,7 +1040,7 @@ function GM:TTTCheckForWin()
 	local cannibal_eat_count = 0
 	for k, v in pairs(player.GetAll()) do
 		if (v:Alive() and v:IsTerror()) or v:GetPData("IsZombifying", 0) == 1 then
-			if v:GetTraitor() or v:GetHypnotist() or v:GetZombie() or v:GetVampire() or v:GetAssassin() or v:GetPData("IsZombifying", 0) == 1 then
+			if v:GetTraitor() or v:GetHypnotist() or v:GetZombie() or v:GetVampire() or v:GetAssassin() or v:GetCrookedCop() or v:GetPData("IsZombifying", 0) == 1 then
 				traitor_alive = true
 			elseif v:GetJester() then
 				jester_alive = true

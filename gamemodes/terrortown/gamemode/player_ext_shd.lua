@@ -53,6 +53,7 @@ plymeta.IsSwapper = plymeta.GetSwapper
 plymeta.IsAssassin = plymeta.GetAssassin
 plymeta.IsKiller = plymeta.GetKiller
 plymeta.IsCannibal = plymeta.GetCannibal
+plymeta.IsCrookedCop = plymeta.GetCrookedCop
 
 function plymeta:IsSpecial() return self:GetRole() ~= ROLE_INNOCENT end
 

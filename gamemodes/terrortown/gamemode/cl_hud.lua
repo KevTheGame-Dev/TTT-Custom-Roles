@@ -49,6 +49,7 @@ local bg_colors = {
 	assassin = Color(112, 50, 0, 200),
 	killer = Color(50, 0, 70, 200),
 	cannibal = Color(176, 137, 54, 200)
+	crookedcop = Color(153, 51, 102, 200)
 };
 
 local health_colors = {
@@ -177,6 +178,8 @@ local function DrawBg(x, y, width, height, client)
 		col = bg_colors.killer
 	elseif client:GetCannibal() then
 		col = bg_colors.cannibal
+	elseif client:GetCrookedCop() then
+		col = bg_colors.crookedcop
 	end
 	
 	draw.RoundedBoxEx(8, x, y, tw, th, col, true, false, false, true)

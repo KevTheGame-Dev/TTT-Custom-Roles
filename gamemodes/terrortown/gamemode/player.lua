@@ -38,6 +38,7 @@ function GM:PlayerInitialSpawn(ply)
 		SendAssassinList()
 		SendKillerList()
 		SendCannibalList()
+		SendCrookedCopList()
 	end
 	
 	-- Game has started, tell this gusy where the round is at
@@ -57,6 +58,7 @@ function GM:PlayerInitialSpawn(ply)
 		SendAssassinList(ply)
 		SendKillerList(ply)
 		SendCannibalList(ply)
+		SendCrookedCopList(ply)
 	end
 	
 	-- Handle spec bots
@@ -822,7 +824,7 @@ function GM:DoPlayerDeath(ply, attacker, dmginfo)
 							DRINKS.AddShot(attacker)
 						end
 						DRINKS.AddPlayerAction("teamkill", attacker)
-					elseif attacker:IsRole(ROLE_TRAITOR) or attacker:IsRole(ROLE_ASSASSIN) or attacker:IsRole(ROLE_HYPNOTIST) or attacker:IsRole(ROLE_VAMPIRE) or attacker:IsRole(ROLE_ZOMBIE) or attacker:IsRole(ROLE_KILLER) then
+					elseif attacker:IsRole(ROLE_TRAITOR) or attacker:IsRole(ROLE_ASSASSIN) or attacker:IsRole(ROLE_HYPNOTIST) or attacker:IsRole(ROLE_VAMPIRE) or attacker:IsRole(ROLE_CROOKEDCOP) or attacker:IsRole(ROLE_ZOMBIE) or attacker:IsRole(ROLE_KILLER) then
 						if GetConVar("ttt_drinking_death"):GetString() == "drink" then
 							DRINKS.AddDrink(ply)
 						elseif GetConVar("ttt_drinking_death"):GetString() == "shot" then
@@ -830,7 +832,7 @@ function GM:DoPlayerDeath(ply, attacker, dmginfo)
 						end
 						DRINKS.AddPlayerAction("death", ply)
 					end
-				elseif ply:IsRole(ROLE_TRAITOR) or ply:IsRole(ROLE_ASSASSIN) or ply:IsRole(ROLE_HYPNOTIST) or ply:IsRole(ROLE_VAMPIRE) or ply:IsRole(ROLE_ZOMBIE) then
+				elseif ply:IsRole(ROLE_TRAITOR) or ply:IsRole(ROLE_ASSASSIN) or ply:IsRole(ROLE_HYPNOTIST) or ply:IsRole(ROLE_VAMPIRE) or ply:IsRole(ROLE_CROOKEDCOP) or ply:IsRole(ROLE_ZOMBIE) then
 					if attacker:IsRole(ROLE_INNOCENT) or attacker:IsRole(ROLE_DETECTIVE) or attacker:IsRole(ROLE_GLITCH) or attacker:IsRole(ROLE_MERCENARY) or attacker:IsRole(ROLE_PHANTOM) or attacker:IsRole(ROLE_KILLER) then
 						if GetConVar("ttt_drinking_death"):GetString() == "drink" then
 							DRINKS.AddDrink(ply)
@@ -838,7 +840,7 @@ function GM:DoPlayerDeath(ply, attacker, dmginfo)
 							DRINKS.AddShot(ply)
 						end
 						DRINKS.AddPlayerAction("death", ply)
-					elseif attacker:IsRole(ROLE_TRAITOR) or attacker:IsRole(ROLE_ASSASSIN) or attacker:IsRole(ROLE_HYPNOTIST) or attacker:IsRole(ROLE_VAMPIRE) or attacker:IsRole(ROLE_ZOMBIE) then
+					elseif attacker:IsRole(ROLE_TRAITOR) or attacker:IsRole(ROLE_ASSASSIN) or attacker:IsRole(ROLE_HYPNOTIST) or attacker:IsRole(ROLE_VAMPIRE) or attacker:IsRole(ROLE_CROOKEDCOP) or attacker:IsRole(ROLE_ZOMBIE) then
 						if GetConVar("ttt_drinking_team_kill"):GetString() == "drink" then
 							DRINKS.AddDrink(attacker)
 						elseif GetConVar("ttt_drinking_team_kill"):GetString() == "shot" then
