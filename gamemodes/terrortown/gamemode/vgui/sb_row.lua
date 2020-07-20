@@ -102,7 +102,7 @@ local rolecolor = {
 	swapper = Color(111, 0, 255, 30),
 	assassin = Color(112, 50, 0, 30),
 	killer = Color(60, 0, 80, 30),
-	cannibal = Color(176, 137, 54, 30)
+	cannibal = Color(176, 137, 54, 30),
 	crookedcop = Color(153, 51, 102, 30)
 }
 
