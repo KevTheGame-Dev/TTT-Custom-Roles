@@ -822,6 +822,12 @@ function GM:DoPlayerDeath(ply, attacker, dmginfo)
 						DRINKS.AddPlayerAction("assassindeath", ply)
 					end
 				end
+				if ply:IsRole(ROLE_PHANTOM) and (attacker:IsRole(ROLE_INNOCENT) or attacker:IsRole(ROLE_DETECTIVE) or attacker:IsRole(ROLE_GLITCH) or attacker:IsRole(ROLE_MERCENARY)) then
+					DRINKS.AddDrink(attacker)
+					DRINKS.AddDrink(attacker)
+					DRINKS.AddDrink(attacker)
+					DRINKS.AddPlayerAction("phantomkill", attacker)
+				end
 				if ply:IsRole(ROLE_INNOCENT) or ply:IsRole(ROLE_DETECTIVE) or ply:IsRole(ROLE_GLITCH) or ply:IsRole(ROLE_MERCENARY) or ply:IsRole(ROLE_PHANTOM) then
 					if attacker:IsRole(ROLE_INNOCENT) or attacker:IsRole(ROLE_DETECTIVE) or attacker:IsRole(ROLE_GLITCH) or attacker:IsRole(ROLE_MERCENARY) or attacker:IsRole(ROLE_PHANTOM) then
 						if GetConVar("ttt_drinking_team_kill"):GetString() == "drink" then
@@ -840,7 +846,7 @@ function GM:DoPlayerDeath(ply, attacker, dmginfo)
 						DRINKS.AddPlayerAction("death", ply)
 					end
 				elseif ply:IsRole(ROLE_TRAITOR) or ply:IsRole(ROLE_ASSASSIN) or ply:IsRole(ROLE_HYPNOTIST) or ply:IsRole(ROLE_VAMPIRE) or ply:IsRole(ROLE_ZOMBIE) then
-					if attacker:IsRole(ROLE_INNOCENT) or attacker:IsRole(ROLE_DETECTIVE) or attacker:IsRole(ROLE_GLITCH) or attacker:IsRole(ROLE_MERCENARY) or attacker:IsRole(ROLE_PHANTOM) or attacker:IsRole(ROLE_KILLER) then
+					if attacker:IsRole(ROLE_INNOCENT) or attacker:IsRole(ROLE_DETECTIVE) or attacker:IsRole(ROLE_MERCENARY) or attacker:IsRole(ROLE_PHANTOM) or attacker:IsRole(ROLE_KILLER) then
 						if GetConVar("ttt_drinking_death"):GetString() == "drink" then
 							DRINKS.AddDrink(ply)
 						elseif GetConVar("ttt_drinking_death"):GetString() == "shot" then
@@ -855,6 +861,10 @@ function GM:DoPlayerDeath(ply, attacker, dmginfo)
 							DRINKS.AddShot(attacker)
 						end
 						DRINKS.AddPlayerAction("teamkill", attacker)
+					elseif attacker:IsRole(ROLE_GLITCH) then
+						DRINKS.AddDrink(ply)
+						DRINKS.AddDrink(ply)
+						DRINKS.AddPlayerAction("glitchdeath", ply)
 					end
 				elseif ply:IsRole(ROLE_JESTER) or ply:IsRole(ROLE_SWAPPER) then
 					for _, m in pairs(player.GetAll()) do

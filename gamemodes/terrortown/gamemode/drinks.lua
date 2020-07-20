@@ -18,6 +18,8 @@ DRINKS.PlayerActions["goldengun"] = {}
 DRINKS.PlayerActions["assassindeath"] = {}
 DRINKS.PlayerActions["assassinmixup"] = {}
 DRINKS.PlayerActions["zombiedetective"] = {}
+DRINKS.PlayerActions["glitchdeath"] = {}
+DRINKS.PlayerActions["phantomkill"] = {}
 
 -- Convars, more convenient access than GetConVar bla bla
 DRINKS.cv = {}
@@ -79,6 +81,8 @@ function DRINKS.ResetPlayerActions()
 	DRINKS.PlayerActions["assassindeath"] = {}
 	DRINKS.PlayerActions["assassinmixup"] = {}
 	DRINKS.PlayerActions["zombiedetective"] = {}
+	DRINKS.PlayerActions["glitchdeath"] = {}
+	DRINKS.PlayerActions["phantomkill"] = {}
 end
 
 function DRINKS.CreateDrinkMessage(convar, key, message)
@@ -128,6 +132,8 @@ function DRINKS.NotifyPlayers()
 	local assassindeathmessage = DRINKS.CreateDrinkMessage("drink", "assassindeath", "dying to their target.")
 	local assassinmixupmessage = DRINKS.CreateDrinkMessage("shot", "assassinmixup", "killing someone who isn't their target.")
 	local zombiedetectivemessage = DRINKS.CreateDrinkMessage("shot", "zombiedetective", "getting zombified as detective. Nice knife, idiot")
+	local glitchdeathmessage = DRINKS.CreateDrinkMessage("drink", "glitchdeath", "dying to the glitch as a traitor.")
+	local phantomkillmessage = DRINKS.CreateDrinkMessage("drink", "phantomkill", "killed the phantom as an innocent.")
 	
 	for _, ply in pairs(player.GetAll()) do
 		if deathmessage then ply:PrintMessage(HUD_PRINTTALK, deathmessage) end
@@ -138,6 +144,8 @@ function DRINKS.NotifyPlayers()
 		if assassindeathmessage then ply:PrintMessage(HUD_PRINTTALK, assassindeathmessage) end
 		if assassinmixupmessage then ply:PrintMessage(HUD_PRINTTALK, assassinmixupmessage) end
 		if zombiedetectivemessage then ply:PrintMessage(HUD_PRINTTALK, zombiedetectivemessage) end
+		if glitchdeathmessage then ply:PrintMessage(HUD_PRINTTALK, glitchdeathmessage) end
+		if phantomkillmessage then ply:PrintMessage(HUD_PRINTTALK, phantomkillmessage) end
 		
 		if (ply:GetLiveDrinks() and ply:GetLiveDrinks() > ply:GetBaseDrinks()) or (ply:GetLiveShots() and ply:GetLiveShots() > ply:GetBaseShots()) then
 			ply:PrintMessage(HUD_PRINTTALK, "You must take " .. ((ply:GetLiveDrinks() or 0) - (ply:GetBaseDrinks() or 0)) .. " drink(s) and " .. ((ply:GetLiveShots() or 0) - (ply:GetBaseShots() or 0)) .. " shot(s).")
