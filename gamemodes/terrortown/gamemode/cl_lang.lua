@@ -215,7 +215,7 @@ local bgcolor = {
 	[ROLE_ASSASSIN] = Color(112, 50, 0, 200),
 	[ROLE_INNOCENT] = Color(0, 50, 0, 200),
 	[ROLE_KILLER] = Color(50, 0, 70, 200),
-	[ROLE_CANNIBAL] = Color(176, 137, 54, 200)
+	[ROLE_CANNIBAL] = Color(176, 137, 54, 200),
 	[ROLE_CROOKEDCOP] = Color(153, 51, 102, 200)
 };
 
