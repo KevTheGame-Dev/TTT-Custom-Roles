@@ -193,6 +193,7 @@ local color_slot = {
 	[ROLE_VAMPIRE] = Color(45, 45, 45, 255),
 	[ROLE_ASSASSIN] = Color(112, 50, 0, 255),
 	[ROLE_KILLER] = Color(50, 0, 70, 255)
+	[ROLE_CROOKEDCOP] = Color(153, 51, 102, 255)
 };
 
 local eqframe = nil
