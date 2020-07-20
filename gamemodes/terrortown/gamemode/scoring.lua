@@ -136,7 +136,7 @@ function SCORE:HandleSelection()
 		elseif ply:GetCannibal() then
 			table.insert(cannibals, ply:SteamID())
 		elseif ply:GetCrookedCop() then
-			table.insert(cannibals, ply:SteamID())
+			table.insert(crookedcops, ply:SteamID())
 		end
 	end
 	

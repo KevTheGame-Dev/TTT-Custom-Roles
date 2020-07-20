@@ -48,7 +48,7 @@ local bg_colors = {
 	swapper = Color(111, 0, 255, 200),
 	assassin = Color(112, 50, 0, 200),
 	killer = Color(50, 0, 70, 200),
-	cannibal = Color(176, 137, 54, 200)
+	cannibal = Color(176, 137, 54, 200),
 	crookedcop = Color(153, 51, 102, 200)
 };
 
