@@ -114,6 +114,7 @@ CreateConVar("ttt_swapper_required_innos", "2")
 CreateConVar("ttt_assassin_required_traitors", "2")
 CreateConVar("ttt_killer_required_innos", "3")
 CreateConVar("ttt_cannibal_required_innos", "3")
+CreateConVar("ttt_crookedcop_required_detectives", "2")
 
 CreateConVar("ttt_zombie_pct", "0.33")
 
@@ -1128,6 +1129,7 @@ function SelectRoles()
 		[ROLE_ASSASSIN] = {},
 		[ROLE_KILLER] = {},
 		[ROLE_CANNIBAL] = {}
+		[ROLE_CROOKEDCOP] = {}
 	};
 	
 	if not GAMEMODE.LastRole then GAMEMODE.LastRole = {} end
@@ -1164,6 +1166,9 @@ function SelectRoles()
 	
 	local assassin_chance = GetConVar("ttt_assassin_chance"):GetFloat()
 	local real_assassin_chance = assassin_chance / ((1 - real_zombie_chance) * (1 - real_hypnotist_chance) * (1 - real_vampire_chance))
+
+	local crookedcop_chance = GetConVar("ttt_crookedcop_chance"):GetFloat()
+	local real_crookedcop_chance = crookedcop_chance / ((1 - real_zombie_chance) * (1 - real_hypnotist_chance) * (1 - real_vampire_chance) * (1 - real_assassin_chance))
 	
 	local jester_chance = GetConVar("ttt_jester_chance"):GetFloat()
 	local real_jester_chance = jester_chance
@@ -1248,6 +1253,10 @@ function SelectRoles()
 					ts = ts + 1
 					hasSpecial = true
 					print(v:Nick() .. " (" .. v:SteamID() .. ") - Assassin")
+				elseif role == ROLE_CROOKEDCOP then
+					ts = ts + 1
+					hasSpecial = true;
+					print(v:Nick() .. " (" .. v:SteamID() .. ") - Crooked Cop")
 				elseif role == ROLE_JESTER then
 					hasJester = true
 					print(v:Nick() .. " (" .. v:SteamID() .. ") - Jester")
@@ -1272,9 +1281,6 @@ function SelectRoles()
 				elseif role == ROLE_CANNIBAL then
 					hasCannibal = true
 					print(v:Nick() .. " (" .. v:SteamID() .. ") - Cannibal")
-				elseif role == ROLE_CROOKEDCOP then
-					hasCrookedCop = true
-					print(v:Nick() .. " (" .. v:SteamID() .. ") - Crooked Cop")
 				end
 			end
 		end
@@ -1320,6 +1326,10 @@ function SelectRoles()
 				elseif ts == GetConVar("ttt_assassin_required_traitors"):GetInt() - 1 and GetConVar("ttt_assassin_enabled"):GetInt() == 1 and math.random() <= real_assassin_chance and not hasSpecial then
 					print(pply:Nick() .. " (" .. pply:SteamID() .. ") - Assassin")
 					pply:SetRole(ROLE_ASSASSIN)
+					hasSpecial = true
+				elseif GetConVar("ttt_crookedcop_required_detectives"):GetInt() <= GetDetectiveCount() and GetConVar("ttt_crookedcop_enabled"):GetInt() == 1 and math.random() <= real_crookedcop_chance and not hasSpecial then
+					print(pply:Nick() .. " (" .. pply:SteamID() .. ") - Crooked Cop")
+					pply:SetRole(ROLE_CROOKEDCOP)
 					hasSpecial = true
 				else
 					print(pply:Nick() .. " (" .. pply:SteamID() .. ") - Traitor")
