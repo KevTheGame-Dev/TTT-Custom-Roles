@@ -93,7 +93,7 @@ function plymeta:IsActiveKiller() return self:IsActiveRole(ROLE_KILLER) end
 
 function plymeta:IsActiveCannibal() return self:IsActiveRole(ROLE_CANNIBAL) end
 
-function plymeta:IsActiveCannibal() return self:IsActiveRole(ROLE_CROOKEDCOP) end
+function plymeta:IsActiveCrookedCop() return self:IsActiveRole(ROLE_CROOKEDCOP) end
 
 function plymeta:IsActiveSpecial() return self:IsSpecial() and self:IsActive() end
 
