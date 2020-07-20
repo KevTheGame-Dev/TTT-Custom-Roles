@@ -1329,7 +1329,7 @@ function SelectRoles()
 					print(pply:Nick() .. " (" .. pply:SteamID() .. ") - Assassin")
 					pply:SetRole(ROLE_ASSASSIN)
 					hasSpecial = true
-				elseif GetConVar("ttt_crookedcop_required_detectives"):GetInt() <= GetDetectiveCount() and GetConVar("ttt_crookedcop_enabled"):GetInt() == 1 and math.random() <= real_crookedcop_chance and not hasSpecial then
+				elseif GetConVar("ttt_crookedcop_required_detectives"):GetInt() <= det_count and GetConVar("ttt_crookedcop_enabled"):GetInt() == 1 and math.random() <= real_crookedcop_chance and not hasSpecial then
 					print(pply:Nick() .. " (" .. pply:SteamID() .. ") - Crooked Cop")
 					pply:SetRole(ROLE_CROOKEDCOP)
 					hasSpecial = true
