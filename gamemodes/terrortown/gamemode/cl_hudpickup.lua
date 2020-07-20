@@ -21,6 +21,7 @@ local pickupclr = {
 	[ROLE_ASSASSIN] = Color(112, 50, 0, 255),
 	[ROLE_KILLER] = Color(50, 0, 70, 255),
 	[ROLE_CANNIBAL] = Color(176, 137, 54, 255)
+	[ROLE_CROOKEDCOP] = Color(153, 51, 102, 255)
 }
 
 function GM:HUDWeaponPickedUp(wep)

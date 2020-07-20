@@ -1272,6 +1272,9 @@ function SelectRoles()
 				elseif role == ROLE_CANNIBAL then
 					hasCannibal = true
 					print(v:Nick() .. " (" .. v:SteamID() .. ") - Cannibal")
+				elseif role == ROLE_CROOKEDCOP then
+					hasCrookedCop = true
+					print(v:Nick() .. " (" .. v:SteamID() .. ") - Crooked Cop")
 				end
 			end
 		end

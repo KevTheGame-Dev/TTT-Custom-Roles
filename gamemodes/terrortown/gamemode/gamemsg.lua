@@ -51,7 +51,7 @@ local function RoleChatMsg(sender, role, msg)
 	net.WriteUInt(role, 4)
 	net.WriteEntity(sender)
 	net.WriteString(msg)
-	if role == ROLE_TRAITOR or role == ROLE_ZOMBIE or role == ROLE_HYPNOTIST or role == ROLE_VAMPIRE or role == ROLE_ASSASSIN then
+	if role == ROLE_TRAITOR or role == ROLE_ZOMBIE or role == ROLE_HYPNOTIST or role == ROLE_VAMPIRE or role == ROLE_ASSASSIN or role == ROLE_CROOKEDCOP then
 		net.Send(GetTraitorsFilter())
 	elseif role == ROLE_JESTER or role == ROLE_SWAPPER or ROLE_CANNIBAL then
 		net.Send(GetTraitorsAndJestersFilter())
@@ -212,7 +212,7 @@ function GM:PlayerSay(ply, text, team_only)
 			for k, v in pairs(player.GetAll()) do
 				if v:IsGlitch() then hasGlitch = true end
 			end
-			if (ply:IsTraitor() or ply:IsZombie() or ply:IsHypnotist() or ply:IsVampire() or ply:IsAssassin()) and hasGlitch then
+			if (ply:IsTraitor() or ply:IsZombie() or ply:IsHypnotist() or ply:IsVampire() or ply:IsAssassin() or ply:IsCrookedCop()) and hasGlitch then
 				ply:SendLua("chat.AddText(\"The glitch is scrambling your communications\")")
 				return ""
 			else

@@ -16,7 +16,7 @@ if (CLIENT) then
 		local AssassinColor = Color(112, 50, 0)
 		local KillerColor = Color(50, 0, 70)
 		local CannibalColor = Color(176, 137, 54)
-		local CrookedCopColor = Color(167, 45, 173)
+		local CrookedCopColor = Color(153, 51, 102)
 		
 		local NameColor = Color(142, 68, 173)
 		local UnknownColor = Color(152, 48, 196)

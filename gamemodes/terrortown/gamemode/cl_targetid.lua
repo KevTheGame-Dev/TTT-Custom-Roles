@@ -43,6 +43,7 @@ local indicator_matswa_noz = Material("vgui/ttt/sprite_let_swa_noz")
 local indicator_matass_noz = Material("vgui/ttt/sprite_let_ass_noz")
 local indicator_matkil_noz = Material("vgui/ttt/sprite_let_kil_noz")
 local indicator_matcan_noz = Material("vgui/ttt/sprite_let_can_noz")
+local indicator_matcro_noz = Material("vgui/ttt/sprite_let_cro_noz")
 local indicator_mattra = Material("vgui/ttt/sprite_let_tra")
 local indicator_matjes = Material("vgui/ttt/sprite_let_jes")
 local indicator_mathyp = Material("vgui/ttt/sprite_let_hyp")
@@ -57,6 +58,7 @@ local indicator_matswa = Material("vgui/ttt/sprite_let_swa")
 local indicator_matass = Material("vgui/ttt/sprite_let_ass")
 local indicator_matkil = Material("vgui/ttt/sprite_let_kil")
 local indicator_matcan = Material("vgui/ttt/sprite_let_can")
+local indicator_matcro = Material("vgui/ttt/sprite_let_cro")
 
 local indicator_col = Color(255, 255, 255, 130)
 
@@ -188,6 +190,9 @@ function GM:PostDrawTranslucentRenderables()
 				elseif v:GetRole() == ROLE_CANNIBAL then
 					render.SetMaterial(indicator_matcan)
 					render.DrawQuadEasy(pos, dir, 8, 8, indicator_col, 180)
+				elseif v:GetRole() == ROLE_CROOKEDCOP then
+					render.SetMaterial(indicator_matcro)
+					render.DrawQuadEasy(pos, dir, 8, 8, indicator_col, 180)
 				end
 			end
 			if not hide_roles then
@@ -203,6 +208,9 @@ function GM:PostDrawTranslucentRenderables()
 						render.DrawQuadEasy(pos, dir, 8, 8, indicator_col, 180)
 					elseif v:GetRole() == ROLE_ASSASSIN then
 						render.SetMaterial(indicator_matass_noz)
+						render.DrawQuadEasy(pos, dir, 8, 8, indicator_col, 180)
+					elseif v:GetRole() == ROLE_CROOKEDCOP then
+						render.SetMaterial(indicator_matcro_noz)
 						render.DrawQuadEasy(pos, dir, 8, 8, indicator_col, 180)
 					elseif v:GetRole() == ROLE_JESTER or v:GetRole() == ROLE_SWAPPER or v:GetRole() == ROLE_CANNIBAL then
 						render.SetMaterial(indicator_matjes)
@@ -383,7 +391,7 @@ function GM:HUDDrawTargetID()
 			_, color = util.HealthToString(ent:Health(), ent:GetMaxHealth())
 		end
 		local revealed = ent:GetNWBool('RoleRevealed', false)
-		if GetRoundState() == ROUND_ACTIVE and client:GetRole() == ROLE_DETECTIVE and revealed then
+		if GetRoundState() == ROUND_ACTIVE and (client:GetRole() == ROLE_DETECTIVE or client:GetRole() == ROLE_CROOKEDCOP) and revealed then
 			target_innocent = ent:IsRole(ROLE_INNOCENT)
 			target_glitch = ent:IsRole(ROLE_GLITCH)
 			target_mercenary = ent:IsRole(ROLE_MERCENARY)
@@ -397,8 +405,9 @@ function GM:HUDDrawTargetID()
 			target_swapper = ent:IsRole(ROLE_SWAPPER)
 			target_killer = ent:IsRole(ROLE_KILLER)
 			target_cannibal = ent:IsRole(ROLE_CANNIBAL)
+			target_crookedcop = ent:IsRole(ROLE_CROOKEDCOP)
 		end
-		if (client:GetRole() == ROLE_TRAITOR or client:GetRole() == ROLE_HYPNOTIST or client:GetRole() == ROLE_ZOMBIE or client:GetRole() == ROLE_VAMPIRE or client:GetRole() == ROLE_ASSASSIN) and GetRoundState() == ROUND_ACTIVE then
+		if (client:GetRole() == ROLE_TRAITOR or client:GetRole() == ROLE_HYPNOTIST or client:GetRole() == ROLE_ZOMBIE or client:GetRole() == ROLE_VAMPIRE or client:GetRole() == ROLE_ASSASSIN or client:GetRole() == ROLE_CROOKEDCOP) and GetRoundState() == ROUND_ACTIVE then
 			target_fellow_traitor = ent:IsRole(ROLE_TRAITOR)
 			target_fellow_zombie = ent:IsRole(ROLE_ZOMBIE)
 			target_hypnotist = ent:IsRole(ROLE_HYPNOTIST)
@@ -406,6 +415,7 @@ function GM:HUDDrawTargetID()
 			target_jester = ent:IsRole(ROLE_JESTER) or ent:IsRole(ROLE_SWAPPER) or ent:IsRole(ROLE_CANNIBAL)
 			target_vampire = ent:IsRole(ROLE_VAMPIRE)
 			target_assassin = ent:IsRole(ROLE_ASSASSIN)
+			target_crookedcop = ent:IsRole(ROLE_CROOKEDCOP)
 		end
 		if client:GetRole() == ROLE_ASSASSIN and GetRoundState() >= ROUND_ACTIVE then
 			target_current_target = (ent:Nick() == client:GetNWString("AssassinTarget", ""))

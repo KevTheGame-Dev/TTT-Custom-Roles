@@ -77,6 +77,8 @@ function SendKillerList(ply_or_rf) SendRoleList(ROLE_KILLER, ply_or_rf) end
 
 function SendCannibalList(ply_or_rf) SendRoleList(ROLE_CANNIBAL, ply_or_rf) end
 
+function SendCrookedCopList(ply_or_rf) SendRoleList(ROLE_CROOKEDCOP, ply_or_rf) end
+
 function SendInnocentList(ply_or_rf) SendRoleList(ROLE_INNOCENT, ply_or_rf) end
 
 function SendConfirmedTraitors(ply_or_rf)
@@ -99,6 +101,7 @@ function SendFullStateUpdate()
 	SendAssassinList()
 	SendKillerList()
 	SendCannibalList()
+	SendCrookedCopList()
 	-- not useful to sync confirmed traitors here
 end
 
@@ -137,6 +140,7 @@ local function request_rolelist(ply)
 		SendAssassinList(ply)
 		SendKillerList(ply)
 		SendCannibalList(ply)
+		SendCrookedCopList(ply)
 		
 		if ply:IsTraitor() then
 			SendTraitorList(ply)
@@ -389,6 +393,22 @@ local function force_cannibal(ply)
 end
 
 concommand.Add("ttt_force_cannibal", force_cannibal, nil, nil, FCVAR_CHEAT)
+
+local function force_crookedcop(ply)
+	ply:SetRole(ROLE_CROOKEDCOP)
+	ply:SetMaxHealth(100)
+	ply:SetHealth(100)
+	if ply:HasWeapon("weapon_hyp_brainwash") then
+		ply:StripWeapon("weapon_hyp_brainwash")
+	end
+	if ply:HasWeapon("weapon_vam_fangs") then
+		ply:StripWeapon("weapon_vam_fangs")
+	end
+
+	SendFullStateUpdate()
+end
+
+concommand.Add("ttt_force_crookedcop", force_crookedcop, nil, nil, FCVAR_CHEAT)
 
 local function force_spectate(ply, cmd, arg)
 	if IsValid(ply) then
