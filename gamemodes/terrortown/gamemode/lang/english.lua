@@ -726,6 +726,13 @@ L.info_popup_cannibal = [[You are a Cannibal! You feel the need to consume flesh
 of the human kind. Eating half of the players in the round will sate your hunger,
 but you deal no damage so you'll have to scavenge bodies.]]
 
+L.info_popup_crookedcop = [[You are a Crooked Cop! To all innocent players, you appear as a Detective,
+but your allegiance lies elsewhere. Work with your fellow traitors to eliminate the innocents, and avoid
+getting caught!]]
+
+L.info_popup_crookedcop_alone = [[You are a Crooked Cop! You have no allies. Eliminate all enemies
+without being found out as the defector!]]
+
 L.info_popup_phantom = [[You are a Phantom!  Try to survive and help your innocent friends!
 You will haunt the player who kills you causing black smoke to appear.
 The haunting will then spread if other players kill your attacker.]]
