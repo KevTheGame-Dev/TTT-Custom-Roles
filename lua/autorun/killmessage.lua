@@ -69,7 +69,7 @@ if (CLIENT) then
 		elseif role == ROLE_CANNIBAL then
 			col = CannibalColor
 			role = "a cannibal"
-		elseif role == ROLE_CROOKEDCOP
+		elseif role == ROLE_CROOKEDCOP then
 			col = CrookedCopColor
 			role = "a crooked cop"
 		else

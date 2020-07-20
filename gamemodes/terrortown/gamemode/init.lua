@@ -1130,7 +1130,7 @@ function SelectRoles()
 		[ROLE_SWAPPER] = {},
 		[ROLE_ASSASSIN] = {},
 		[ROLE_KILLER] = {},
-		[ROLE_CANNIBAL] = {}
+		[ROLE_CANNIBAL] = {},
 		[ROLE_CROOKEDCOP] = {}
 	};
 	
