@@ -111,7 +111,7 @@ local role_strings = {
 	[ROLE_SWAPPER] = "swapper",
 	[ROLE_ASSASSIN] = "assassin",
 	[ROLE_KILLER] = "killer",
-	[ROLE_CANNIBAL] = "cannibal"
+	[ROLE_CANNIBAL] = "cannibal",
 	[ROLE_CROOKEDCOP] = "crookedcop"
 };
 
