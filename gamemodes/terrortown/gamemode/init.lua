@@ -1368,6 +1368,13 @@ function SelectRoles()
 			table.remove(choices, pick)
 		end
 	end
+
+	hasVamp = false
+	for n, p pairs(choices) do
+		if p:hasRole() == ROLE_VAMPIRE then
+			has_vamp = true
+		end
+	end
 	
 	if GetConVar("ttt_jester_enabled"):GetInt() == 1 and #choices >= GetConVar("ttt_jester_required_innos"):GetInt() and math.random() <= real_jester_chance and not hasJester and not hasKiller then
 		local pick = math.random(1, #choices)
@@ -1396,7 +1403,7 @@ function SelectRoles()
 			hasKiller = true
 		end
 		table.remove(choices, pick)
-	elseif GetConVar("ttt_cannibal_enabled"):GetInt() == 1 and #choices >= GetConVar("ttt_cannibal_required_innos"):GetInt() and math.random() <= real_cannibal_chance and not hasJester and not hasKiller and not hasCannibal then
+	elseif GetConVar("ttt_cannibal_enabled"):GetInt() == 1 and #choices >= GetConVar("ttt_cannibal_required_innos"):GetInt() and math.random() <= real_cannibal_chance and not hasJester and not hasKiller and not hasZombie and not hasVamp and not hasCannibal then
 		local pick = math.random(1, #choices)
 		local pply = choices[pick]
 		if IsValid(pply) then
