@@ -224,7 +224,7 @@ function SCORE:ApplyEventLogScores(wintype)
 		elseif ply:GetCannibal() then
 			table.insert(cannibals, ply:SteamID())
 		elseif ply:GetCrookedCop() then
-			table.insert(crookedcops, ply.SteamID())
+			table.insert(crookedcops, ply:SteamID())
 		end
 	end
 	

@@ -630,7 +630,7 @@ function GM:HUDDrawTargetID()
 	elseif target_fellow_zombie or (target_glitch and client:GetRole() == ROLE_ZOMBIE) then
 		text = L.target_fellow_zombie
 		clr = Color(69, 97, 0, 200)
-	elseif target_corpse and (client:IsActiveDetective() or client:IsActiveTraitor() or client:IsActiveMercenary() or client:IsActiveZombie() or client:IsActiveVampire() or client:IsActiveHypnotist() or client:IsActiveAssassin() or client:IsActiveKiller()) and CORPSE.GetCredits(ent, 0) > 0 then
+	elseif target_corpse and (client:IsActiveDetective() or client:IsActiveTraitor() or client:IsActiveMercenary() or client:IsActiveZombie() or client:IsActiveVampire() or client:IsActiveHypnotist() or client:IsActiveAssassin() or client:IsActiveCrookedCop() or client:IsActiveKiller()) and CORPSE.GetCredits(ent, 0) > 0 then
 		text = L.target_credits
 		clr = COLOR_YELLOW
 	end

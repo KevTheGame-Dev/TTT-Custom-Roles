@@ -147,6 +147,10 @@ function GetTraitorsAndJestersFilter(alive_only)
 	return GetPlayerFilter(function(p) return (p:IsTraitor() or p:IsZombie() or p:IsHypnotist() or p:IsVampire() or p:IsAssassin() or p:IsJester() or p:IsSwapper() or p:IsCannibal() or p:IsCrookedCop()) and (not alive_only or p:IsTerror()) end)
 end
 
+function GetDetectiveAndCrookedCopFilter(alive_only)
+	return GetPlayerFilter(function(p) return (p:IsDetective() or p:IsCrookedCop()) and (not alive_only or p:IsTerror()) end)
+end
+
 function GetRoleFilter(role, alive_only)
 	return GetPlayerFilter(function(p) return p:IsRole(role) and (not alive_only or p:IsTerror()) end)
 end
