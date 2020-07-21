@@ -124,7 +124,7 @@ end
 function GM:OnPlayerChat(ply, text, teamchat, dead)
 	if not IsValid(ply) then return BaseClass.OnPlayerChat(self, ply, text, teamchat, dead) end
 	
-	if ply:IsActiveDetective() then
+	if ply:IsActiveDetective() or ply:IsCrookedCop() then
 		AddDetectiveText(ply, text)
 		return true
 	end
@@ -437,7 +437,7 @@ local function RadioMsgRecv()
 		text = util.Capitalize(text)
 	end
 	
-	if sender:IsDetective() then
+	if sender:IsDetective() or sender:IsCrookedCop() then
 		AddDetectiveText(sender, text)
 	else
 		chat.AddText(sender,

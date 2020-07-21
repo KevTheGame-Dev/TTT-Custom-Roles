@@ -730,7 +730,12 @@ but you deal no damage so you'll have to scavenge bodies.]]
 
 L.info_popup_crookedcop = [[You are a Crooked Cop! To all innocent players, you appear as a Detective,
 but your allegiance lies elsewhere. Work with your fellow traitors to eliminate the innocents, and avoid
-getting caught!]]
+getting caught!
+
+These are your comrades:
+{traitorlist}
+
+Press {menukey} to receive your special equipment!]]
 
 L.info_popup_crookedcop_alone = [[You are a Crooked Cop! You have no allies. Eliminate all enemies
 without being found out as the defector!]]
@@ -825,6 +830,16 @@ These are your comrades:
 {traitorlist}
 The following comrade is a hypnotist:
 {hypnotistlist}
+
+Press {menukey} to receive your special equipment!]]
+
+L.info_popup_traitor_crookedcop = [[You are a TRAITOR! Work with fellow traitors to kill all others.
+But take care, or your treason may be discovered...
+
+These are your comrades:
+{traitorlist}
+The following comrade is a crooked cop:
+{crookedcoplist}
 
 Press {menukey} to receive your special equipment!]]
 

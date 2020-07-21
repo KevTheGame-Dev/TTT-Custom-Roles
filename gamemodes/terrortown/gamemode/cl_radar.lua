@@ -199,7 +199,7 @@ function RADAR:Draw(client)
 					surface.SetTextColor(112, 50, 0, alpha)
 				elseif role == ROLE_CROOKEDCOP then
 					surface.SetDrawColor(153, 51, 102, alpha)
-					surface.setTextColor(153, 51, 102, alpha)
+					surface.SetTextColor(153, 51, 102, alpha)
 				elseif role == ROLE_JESTER or role == ROLE_SWAPPER or role == ROLE_CANNIBAL then
 					surface.SetDrawColor(180, 23, 253, alpha)
 					surface.SetTextColor(180, 23, 253, alpha)

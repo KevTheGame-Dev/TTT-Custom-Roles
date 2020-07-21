@@ -150,7 +150,7 @@ function GM:PostDrawTranslucentRenderables()
 			pos = v:GetPos()
 			pos.z = pos.z + 74
 			local revealed = v:GetNWBool('RoleRevealed', false)
-			if v:GetRole() == ROLE_DETECTIVE then
+			if v:GetRole() == ROLE_DETECTIVE or v:GetRole() == ROLE_CROOKEDCOP then
 				render.SetMaterial(indicator_matdet)
 				render.DrawQuadEasy(pos, dir, 8, 8, indicator_col, 180)
 			end
@@ -412,6 +412,9 @@ function GM:HUDDrawTargetID()
 			target_cannibal = ent:IsRole(ROLE_CANNIBAL)
 			target_crookedcop = ent:IsRole(ROLE_CROOKEDCOP)
 		end
+		
+		target_detective = GetRoundState() > ROUND_PREP and (ent:GetRole() == ROLE_DETECTIVE or ent:GetRole() == ROLE_CROOKEDCOP) or false
+
 		if (client:GetRole() == ROLE_TRAITOR or client:GetRole() == ROLE_HYPNOTIST or client:GetRole() == ROLE_ZOMBIE or client:GetRole() == ROLE_VAMPIRE or client:GetRole() == ROLE_ASSASSIN or client:GetRole() == ROLE_CROOKEDCOP) and GetRoundState() == ROUND_ACTIVE then
 			target_fellow_traitor = ent:IsRole(ROLE_TRAITOR)
 			target_fellow_zombie = ent:IsRole(ROLE_ZOMBIE)
@@ -421,12 +424,11 @@ function GM:HUDDrawTargetID()
 			target_vampire = ent:IsRole(ROLE_VAMPIRE)
 			target_assassin = ent:IsRole(ROLE_ASSASSIN)
 			target_crookedcop = ent:IsRole(ROLE_CROOKEDCOP)
+			target_detective = ent:IsRole(ROLE_DETECTIVE)
 		end
 		if client:GetRole() == ROLE_ASSASSIN and GetRoundState() >= ROUND_ACTIVE then
 			target_current_target = (ent:Nick() == client:GetNWString("AssassinTarget", ""))
 		end
-		
-		target_detective = GetRoundState() > ROUND_PREP and (ent:GetRole() == ROLE_DETECTIVE) or false
 	
 	elseif cls == "prop_ragdoll" then
 		-- only show this if the ragdoll has a nick, else it could be a mattress
