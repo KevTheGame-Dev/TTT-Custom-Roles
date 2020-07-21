@@ -150,10 +150,20 @@ function GM:PostDrawTranslucentRenderables()
 			pos = v:GetPos()
 			pos.z = pos.z + 74
 			local revealed = v:GetNWBool('RoleRevealed', false)
-			if v:GetRole() == ROLE_DETECTIVE or v:GetRole() == ROLE_CROOKEDCOP then
+			if v:GetRole() == ROLE_DETECTIVE then
 				render.SetMaterial(indicator_matdet)
 				render.DrawQuadEasy(pos, dir, 8, 8, indicator_col, 180)
 			end
+			if v:GetRole() == ROLE_CROOKEDCOP then
+				if (client:GetRole() == ROLE_TRAITOR or client:GetRole() == ROLE_HYPNOTIST or client:GetRole() == ROLE_ASSASSIN or client:GetRole() == ROLE_CROOKEDCOP or client:GetRole() == ROLE_VAMPIRE) then
+					render.SetMaterial(indicator_matcro)
+					render.DrawQuadEasy(pos, dir, 8, 8, indicator_col, 180)
+				else
+					render.SetMaterial(indicator_matdet)
+					render.DrawQuadEasy(pos, dir, 8, 8, indicator_col, 180)
+				end
+			end
+			
 			if revealed and (client:GetRole() == ROLE_DETECTIVE or client:GetRole() == ROLE_CROOKEDCOP) then
 				if v:GetRole() == ROLE_INNOCENT then
 					render.SetMaterial(indicator_matinn)
@@ -504,7 +514,7 @@ function GM:HUDDrawTargetID()
 		draw.SimpleText(text, font, x, y, color)
 		
 		-- for ragdolls searched by detectives, add icon
-		if ent.search_result and client:IsDetective() then
+		if ent.search_result and (client:IsDetective() or client:IsCrookedCop()) then
 			-- if I am detective and I know a search result for this corpse, then I
 			-- have searched it or another detective has
 			surface.SetMaterial(magnifier_mat)
