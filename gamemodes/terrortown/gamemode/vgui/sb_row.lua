@@ -154,10 +154,6 @@ function GM:TTTScoreboardRowColorForPlayer(ply)
 		end
 	end
 	
-	if ply:IsDetective() then
-		return rolecolor.detective
-	end
-	
 	if LocalPlayer():IsTraitor() or LocalPlayer():IsHypnotist() or LocalPlayer():IsVampire() or LocalPlayer():IsAssassin() or LocalPlayer():IsCrookedCop() then
 		if ply:IsTraitor() or ply:IsGlitch() then
 			return rolecolor.traitor
@@ -180,6 +176,10 @@ function GM:TTTScoreboardRowColorForPlayer(ply)
 		elseif ply:IsJester() or ply:IsSwapper() or ply:IsCannibal() then
 			return rolecolor.jester
 		end
+	end
+
+	if ply:IsDetective() or ply:IsCrookedCop() then
+		return rolecolor.detective
 	end
 	
 	return rolecolor.default

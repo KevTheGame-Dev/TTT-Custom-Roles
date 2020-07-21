@@ -154,7 +154,7 @@ function GM:PostDrawTranslucentRenderables()
 				render.SetMaterial(indicator_matdet)
 				render.DrawQuadEasy(pos, dir, 8, 8, indicator_col, 180)
 			end
-			if revealed and client:GetRole() == ROLE_DETECTIVE then
+			if revealed and (client:GetRole() == ROLE_DETECTIVE or client:GetRole() == ROLE_CROOKEDCOP) then
 				if v:GetRole() == ROLE_INNOCENT then
 					render.SetMaterial(indicator_matinn)
 					render.DrawQuadEasy(pos, dir, 8, 8, indicator_col, 180)
@@ -200,7 +200,7 @@ function GM:PostDrawTranslucentRenderables()
 				end
 			end
 			if not hide_roles then
-				if client:GetRole() == ROLE_TRAITOR or client:GetRole() == ROLE_HYPNOTIST or client:GetRole() == ROLE_VAMPIRE or client:GetRole() == ROLE_ASSASSIN then
+				if client:GetRole() == ROLE_TRAITOR or client:GetRole() == ROLE_HYPNOTIST or client:GetRole() == ROLE_VAMPIRE or client:GetRole() == ROLE_ASSASSIN or client:GetRole() == ROLE_CROOKEDCOP then
 					if v:GetRole() == ROLE_TRAITOR or v:GetRole() == ROLE_GLITCH then
 						render.SetMaterial(indicator_mattra_noz)
 						render.DrawQuadEasy(pos, dir, 8, 8, indicator_col, 180)
