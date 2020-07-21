@@ -337,7 +337,7 @@ function CORPSE.ShowSearch(ply, rag, covert, long_range)
 	-- 200
 	
 	-- If found by detective, send to all, else just the finder
-	if ply:IsActiveDetective() ply:IsActiveCrookedCop() then
+	if ply:IsActiveDetective() or ply:IsActiveCrookedCop() then
 		net.Broadcast()
 	else
 		net.Send(ply)
