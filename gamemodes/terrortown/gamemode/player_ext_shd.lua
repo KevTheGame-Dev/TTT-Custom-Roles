@@ -38,6 +38,8 @@ function plymeta:GetKiller() return self:GetRole() == ROLE_KILLER end
 
 function plymeta:GetCannibal() return self:GetRole() == ROLE_CANNIBAL end
 
+function plymeta:GetCrookedCop() return self:GetRole() == ROLE_CROOKEDCOP end
+
 plymeta.IsTraitor = plymeta.GetTraitor
 plymeta.IsDetective = plymeta.GetDetective
 plymeta.IsMercenary = plymeta.GetMercenary
@@ -51,6 +53,7 @@ plymeta.IsSwapper = plymeta.GetSwapper
 plymeta.IsAssassin = plymeta.GetAssassin
 plymeta.IsKiller = plymeta.GetKiller
 plymeta.IsCannibal = plymeta.GetCannibal
+plymeta.IsCrookedCop = plymeta.GetCrookedCop
 
 function plymeta:IsSpecial() return self:GetRole() ~= ROLE_INNOCENT end
 
@@ -90,6 +93,8 @@ function plymeta:IsActiveKiller() return self:IsActiveRole(ROLE_KILLER) end
 
 function plymeta:IsActiveCannibal() return self:IsActiveRole(ROLE_CANNIBAL) end
 
+function plymeta:IsActiveCrookedCop() return self:IsActiveRole(ROLE_CROOKEDCOP) end
+
 function plymeta:IsActiveSpecial() return self:IsSpecial() and self:IsActive() end
 
 local role_strings = {
@@ -106,7 +111,8 @@ local role_strings = {
 	[ROLE_SWAPPER] = "swapper",
 	[ROLE_ASSASSIN] = "assassin",
 	[ROLE_KILLER] = "killer",
-	[ROLE_CANNIBAL] = "cannibal"
+	[ROLE_CANNIBAL] = "cannibal",
+	[ROLE_CROOKEDCOP] = "crookedcop"
 };
 
 local GetRTranslation = CLIENT and LANG.GetRawTranslation or util.passthrough

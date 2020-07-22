@@ -16,6 +16,7 @@ L.swapper = "Swapper"
 L.assassin = "Assassin"
 L.killer = "Killer"
 L.cannibal = "Cannibal"
+L.crookedcop = "Crooked Cop"
 L.innocent = "Innocent"
 L.hidden = "Hidden"
 L.last_words = "Last Words"
@@ -75,6 +76,7 @@ L.body_found_s = "They were a Swapper."
 L.body_found_a = "They were an Assassin."
 L.body_found_k = "They were a Killer."
 L.body_found_c = "They were a Cannibal."
+L.body_found_cc = "They were a Crooked Cop."
 L.body_found_i = "They were Innocent."
 
 L.body_confirm = "{finder} confirmed the death of {victim}."
@@ -212,6 +214,7 @@ L.search_role_s = "This person was a Swapper"
 L.search_role_a = "This person was an Assassin"
 L.search_role_k = "This person was a Killer"
 L.search_role_c = "This person was a Cannibal"
+L.search_role_cc = "This person was a Crooked Cop."
 L.search_role_i = "This person was Innocent."
 
 L.search_words = "Something tells you some of this person's last words were: '{lastwords}'"
@@ -648,6 +651,7 @@ L.target_jester = "JESTER"
 L.target_swapper = "SWAPPER"
 L.target_killer = "KILLER"
 L.target_cannibal = "CANNIBAL"
+L.target_crookedcop = "CROOKED COP"
 L.target_fellow_traitor = "FELLOW TRAITOR"
 L.target_fellow_zombie = "FELLOW ZOMBIE"
 L.target_current_target = "CURRENT TARGET"
@@ -723,6 +727,18 @@ but you deal no damage so you must be killed by some one else.]]
 L.info_popup_cannibal = [[You are a Cannibal! You feel the need to consume flesh
 of the human kind. Eating half of the players in the round will sate your hunger,
 but you deal no damage so you'll have to scavenge bodies.]]
+
+L.info_popup_crookedcop = [[You are a Crooked Cop! To all innocent players, you appear as a Detective,
+but your allegiance lies elsewhere. Work with your fellow traitors to eliminate the innocents, and avoid
+getting caught!
+
+These are your comrades:
+{traitorlist}
+
+Press {menukey} to receive your special equipment!]]
+
+L.info_popup_crookedcop_alone = [[You are a Crooked Cop! You have no allies. Eliminate all enemies
+without being found out as the defector!]]
 
 L.info_popup_phantom = [[You are a Phantom!  Try to survive and help your innocent friends!
 You will haunt the player who kills you causing black smoke to appear.
@@ -814,6 +830,16 @@ These are your comrades:
 {traitorlist}
 The following comrade is a hypnotist:
 {hypnotistlist}
+
+Press {menukey} to receive your special equipment!]]
+
+L.info_popup_traitor_crookedcop = [[You are a TRAITOR! Work with fellow traitors to kill all others.
+But take care, or your treason may be discovered...
+
+These are your comrades:
+{traitorlist}
+The following comrade is a crooked cop:
+{crookedcoplist}
 
 Press {menukey} to receive your special equipment!]]
 

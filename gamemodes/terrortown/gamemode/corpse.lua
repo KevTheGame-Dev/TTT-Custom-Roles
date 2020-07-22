@@ -87,6 +87,8 @@ local function IdentifyBody(ply, rag)
 			roletext = "body_found_k"
 		elseif role == ROLE_CANNIBAL then
 			roletext = "body_found_c"
+		elseif role == ROLE_CROOKEDCOP then
+			roletext = "body_found_cc"
 		else
 			roletext = "body_found_i"
 		end
@@ -183,7 +185,7 @@ local function CallDetective(ply, cmd, args)
 			-- show indicator to detectives
 			net.Start("TTT_CorpseCall")
 			net.WriteVector(rag:GetPos())
-			net.Send(GetDetectiveFilter(true))
+			net.Send(GetDetectiveAndCrookedCopFilter(true))
 			
 			LANG.Msg("body_call", {
 				player = ply:Nick(),
@@ -246,7 +248,7 @@ function CORPSE.ShowSearch(ply, rag, covert, long_range)
 	local detectiveSearchOnly = GetGlobalBool("ttt_detective_search_only", true)
 	
 	local credits = CORPSE.GetCredits(rag, 0)
-	if (ply:IsActiveDetective() or ply:IsActiveTraitor() or ply:IsActiveMercenary() or ply:IsActiveZombie() or ply:IsActiveVampire() or ply:IsActiveHypnotist() or ply:IsActiveAssassin() or ply:IsActiveKiller()) and credits > 0 and (not long_range) then
+	if (ply:IsActiveDetective() or ply:IsActiveTraitor() or ply:IsActiveMercenary() or ply:IsActiveZombie() or ply:IsActiveVampire() or ply:IsActiveHypnotist() or ply:IsActiveAssassin() or ply:IsActiveKiller() or ply:IsActiveCrookedCop()) and credits > 0 and (not long_range) then
 		LANG.Msg(ply, "body_credits", { num = credits })
 		ply:AddCredits(credits)
 		CORPSE.SetCredits(rag, 0)
@@ -254,14 +256,14 @@ function CORPSE.ShowSearch(ply, rag, covert, long_range)
 		SCORE:HandleCreditFound(ply, nick, credits)
 		return
 	elseif DetectiveMode() and not covert then
-		if ply:IsDetective() or not detectiveSearchOnly then
+		if ply:IsDetective() or ply:IsCrookedCop() or not detectiveSearchOnly then
 			IdentifyBody(ply, rag)
 		elseif not ply:IsSpec() and not ownerEnt:GetNWBool("det_called", false) and not ownerEnt:GetNWBool("body_searched", false) then
 			if IsValid(rag) and rag:GetPos():Distance(ply:GetPos()) < 128 then
 				hook.Call("TTTBodyFound", GAMEMODE, ply, deadply, rag)
 				net.Start("TTT_CorpseCall")
 				net.WriteVector(rag:GetPos())
-				net.Send(GetDetectiveFilter(true))
+				net.Send(GetDetectiveAndCrookedCopFilter(true))
 				ownerEnt:SetNWBool("det_called", true)
 				ownerEnt:SetNWBool("body_found", true)
 				LANG.Msg("body_confirm", { finder = ply:Nick(), victim = CORPSE.GetPlayerNick(rag, "someone") })
@@ -333,7 +335,7 @@ function CORPSE.ShowSearch(ply, rag, covert, long_range)
 	-- 200
 	
 	-- If found by detective, send to all, else just the finder
-	if ply:IsActiveDetective() then
+	if ply:IsActiveDetective() or ply:IsActiveCrookedCop() then
 		net.Broadcast()
 	else
 		net.Send(ply)

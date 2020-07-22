@@ -38,6 +38,7 @@ function GM:PlayerInitialSpawn(ply)
 		SendAssassinList()
 		SendKillerList()
 		SendCannibalList()
+		SendCrookedCopList()
 	end
 	
 	-- Game has started, tell this gusy where the round is at
@@ -57,6 +58,7 @@ function GM:PlayerInitialSpawn(ply)
 		SendAssassinList(ply)
 		SendKillerList(ply)
 		SendCannibalList(ply)
+		SendCrookedCopList(ply)
 	end
 	
 	-- Handle spec bots
@@ -541,7 +543,7 @@ local function CheckCreditAward(victim, attacker)
 	if not IsValid(victim) then return end
 	
 	-- DETECTIVE AWARD
-	if IsValid(attacker) and attacker:IsPlayer() and attacker:IsActiveDetective() and (victim:IsTraitor() or victim:IsHypnotist() or victim:IsVampire() or victim:IsAssassin() or victim:IsZombie() or victim:IsKiller()) then
+	if IsValid(attacker) and attacker:IsPlayer() and attacker:IsActiveDetective() and (victim:IsTraitor() or victim:IsHypnotist() or victim:IsVampire() or victim:IsAssassin() or victim:IsZombie() or victim:IsCrookedCop() or victim:IsKiller()) then
 		local amt = GetConVarNumber("ttt_det_credits_traitordead") or 1
 		for _, ply in pairs(player.GetAll()) do
 			if ply:IsActiveDetective() then
@@ -559,7 +561,7 @@ local function CheckCreditAward(victim, attacker)
 		local inno_total = 0
 		
 		for _, ply in pairs(player.GetAll()) do
-			if not (ply:GetTraitor() or ply:GetHypnotist() or ply:GetVampire() or ply:GetAssassin() or ply:GetZombie()) then
+			if not (ply:GetTraitor() or ply:GetHypnotist() or ply:GetVampire() or ply:GetAssassin() or ply:GetCrookedCop() or ply:GetZombie()) then
 				if ply:IsTerror() then
 					inno_alive = inno_alive + 1
 				elseif ply:IsDeadTerror() then
@@ -590,9 +592,10 @@ local function CheckCreditAward(victim, attacker)
 				LANG.Msg(GetHypnotistFilter(true), "credit_tr_all", { num = amt })
 				LANG.Msg(GetVampireFilter(true), "credit_tr_all", { num = amt })
 				LANG.Msg(GetAssassinFilter(true), "credit_tr_all", { num = amt })
+				LANG.Msg(GetCrookedCopFilter(true), "credit_tr_all", { num = amt })
 				
 				for _, ply in pairs(player.GetAll()) do
-					if ply:IsActiveTraitor() or ply:IsActiveHypnotist() or ply:IsActiveVampire() or ply:IsActiveAssassin() then
+					if ply:IsActiveTraitor() or ply:IsActiveHypnotist() or ply:IsActiveVampire() or ply:IsActiveAssassin() or ply:IsActiveCrookedCop() then
 						ply:AddCredits(amt)
 					end
 				end
@@ -712,7 +715,7 @@ function GM:DoPlayerDeath(ply, attacker, dmginfo)
 			net.Broadcast()
 			deadPhantom:PrintMessage(HUD_PRINTCENTER, "Your attacker died and you have been respawned.")
 			for k, v in pairs(player.GetAll()) do
-				if v:IsRole(ROLE_DETECTIVE) and v:Alive() then
+				if (v:IsRole(ROLE_DETECTIVE) or v:IsRole(ROLE_CROOKEDCOP)) and v:Alive() then
 					v:PrintMessage(HUD_PRINTCENTER, "The phantom has been respawned.")
 				end
 			end
@@ -822,7 +825,7 @@ function GM:DoPlayerDeath(ply, attacker, dmginfo)
 							DRINKS.AddShot(attacker)
 						end
 						DRINKS.AddPlayerAction("teamkill", attacker)
-					elseif attacker:IsRole(ROLE_TRAITOR) or attacker:IsRole(ROLE_ASSASSIN) or attacker:IsRole(ROLE_HYPNOTIST) or attacker:IsRole(ROLE_VAMPIRE) or attacker:IsRole(ROLE_ZOMBIE) or attacker:IsRole(ROLE_KILLER) then
+					elseif attacker:IsRole(ROLE_TRAITOR) or attacker:IsRole(ROLE_ASSASSIN) or attacker:IsRole(ROLE_HYPNOTIST) or attacker:IsRole(ROLE_VAMPIRE) or attacker:IsRole(ROLE_CROOKEDCOP) or attacker:IsRole(ROLE_ZOMBIE) or attacker:IsRole(ROLE_KILLER) then
 						if GetConVar("ttt_drinking_death"):GetString() == "drink" then
 							DRINKS.AddDrink(ply)
 						elseif GetConVar("ttt_drinking_death"):GetString() == "shot" then
@@ -830,7 +833,7 @@ function GM:DoPlayerDeath(ply, attacker, dmginfo)
 						end
 						DRINKS.AddPlayerAction("death", ply)
 					end
-				elseif ply:IsRole(ROLE_TRAITOR) or ply:IsRole(ROLE_ASSASSIN) or ply:IsRole(ROLE_HYPNOTIST) or ply:IsRole(ROLE_VAMPIRE) or ply:IsRole(ROLE_ZOMBIE) then
+				elseif ply:IsRole(ROLE_TRAITOR) or ply:IsRole(ROLE_ASSASSIN) or ply:IsRole(ROLE_HYPNOTIST) or ply:IsRole(ROLE_VAMPIRE) or ply:IsRole(ROLE_CROOKEDCOP) or ply:IsRole(ROLE_ZOMBIE) then
 					if attacker:IsRole(ROLE_INNOCENT) or attacker:IsRole(ROLE_DETECTIVE) or attacker:IsRole(ROLE_GLITCH) or attacker:IsRole(ROLE_MERCENARY) or attacker:IsRole(ROLE_PHANTOM) or attacker:IsRole(ROLE_KILLER) then
 						if GetConVar("ttt_drinking_death"):GetString() == "drink" then
 							DRINKS.AddDrink(ply)
@@ -838,7 +841,7 @@ function GM:DoPlayerDeath(ply, attacker, dmginfo)
 							DRINKS.AddShot(ply)
 						end
 						DRINKS.AddPlayerAction("death", ply)
-					elseif attacker:IsRole(ROLE_TRAITOR) or attacker:IsRole(ROLE_ASSASSIN) or attacker:IsRole(ROLE_HYPNOTIST) or attacker:IsRole(ROLE_VAMPIRE) or attacker:IsRole(ROLE_ZOMBIE) then
+					elseif attacker:IsRole(ROLE_TRAITOR) or attacker:IsRole(ROLE_ASSASSIN) or attacker:IsRole(ROLE_HYPNOTIST) or attacker:IsRole(ROLE_VAMPIRE) or attacker:IsRole(ROLE_CROOKEDCOP) or attacker:IsRole(ROLE_ZOMBIE) then
 						if GetConVar("ttt_drinking_team_kill"):GetString() == "drink" then
 							DRINKS.AddDrink(attacker)
 						elseif GetConVar("ttt_drinking_team_kill"):GetString() == "shot" then
@@ -895,7 +898,7 @@ function GM:DoPlayerDeath(ply, attacker, dmginfo)
 	-- Check for T killing D or vice versa
 	if IsValid(attacker) and attacker:IsPlayer() then
 		local reward = 0
-		if (attacker:IsActiveTraitor() or attacker:IsActiveHypnotist() or attacker:IsActiveVampire() or attacker:IsActiveAssassin()) and ply:GetDetective() then
+		if (attacker:IsActiveTraitor() or attacker:IsActiveHypnotist() or attacker:IsActiveVampire() or attacker:IsActiveAssassin() or attacker:IsCrookedCop()) and ply:GetDetective() then
 			reward = math.ceil(GetConVarNumber("ttt_credits_detectivekill"))
 		elseif attacker:IsActiveDetective() and ply:GetTraitor() then
 			reward = math.ceil(GetConVarNumber("ttt_det_credits_traitorkill"))

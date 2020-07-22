@@ -70,7 +70,7 @@ function plymeta:SetDefaultCredits()
 			c = c + GetConVarNumber("ttt_credits_alonebonus")
 		end
 		self:SetCredits(math.ceil(c))
-	elseif self:GetDetective() then
+	elseif self:GetDetective() or self:GetCrookedCop() then
 		self:SetCredits(math.ceil(GetConVarNumber("ttt_det_credits_starting")))
 	elseif self:GetMercenary() then
 		self:SetCredits(math.ceil(GetConVarNumber("ttt_mer_credits_starting")))

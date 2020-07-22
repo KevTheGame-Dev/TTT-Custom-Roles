@@ -26,6 +26,7 @@ ROLE_SWAPPER = 10
 ROLE_ASSASSIN = 11
 ROLE_KILLER = 12
 ROLE_CANNIBAL = 13
+ROLE_CROOKEDCOP = 14
 ROLE_NONE = ROLE_INNOCENT
 
 -- Game event log defs
@@ -256,6 +257,21 @@ DefaultEquipment = {
 		EQUIP_ARMOR,
 		EQUIP_RADAR,
 		"weapon_ttt_health_station"
+	},
+	[ROLE_CROOKEDCOP] = {
+		"weapon_ttt_c4",
+		"weapon_ttt_flaregun",
+		"weapon_ttt_knife",
+		"weapon_ttt_phammer",
+		"weapon_ttt_push",
+		"weapon_ttt_radio",
+		"weapon_ttt_sipistol",
+		"weapon_ttt_teleport",
+		"weapon_ttt_decoy",
+		"weapon_ttt_health_station",
+		EQUIP_ARMOR,
+		EQUIP_RADAR,
+		EQUIP_DISGUISE
 	},
 	[ROLE_ZOMBIE] = {
 		EQUIP_ARMOR,

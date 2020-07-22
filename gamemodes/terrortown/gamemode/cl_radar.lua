@@ -119,7 +119,7 @@ function RADAR:Draw(client)
 	surface.SetFont("HudSelectionText")
 	
 	-- C4 warnings
-	if self.bombs_count ~= 0 and (client:IsActiveTraitor() or client:IsActiveHypnotist() or client:IsActiveVampire() or client:IsActiveAssassin()) then
+	if self.bombs_count ~= 0 and (client:IsActiveTraitor() or client:IsActiveHypnotist() or client:IsActiveVampire() or client:IsActiveAssassin() or client:IsActiveCrookedCop()) then
 		surface.SetTexture(c4warn)
 		surface.SetTextColor(200, 55, 55, 220)
 		surface.SetDrawColor(255, 255, 255, 200)
@@ -130,7 +130,7 @@ function RADAR:Draw(client)
 	end
 	
 	-- Corpse calls
-	if client:IsActiveDetective() and #self.called_corpses then
+	if (client:IsActiveDetective() or client:IsActiveCrookedCop()) and #self.called_corpses then
 		surface.SetTexture(det_beacon)
 		surface.SetTextColor(255, 255, 255, 240)
 		surface.SetDrawColor(255, 255, 255, 230)
@@ -184,7 +184,7 @@ function RADAR:Draw(client)
 			end
 			
 			role = tgt.role
-			if client:GetTraitor() or client:GetHypnotist() or client:GetVampire() or client:GetAssassin() then
+			if client:GetTraitor() or client:GetHypnotist() or client:GetVampire() or client:GetAssassin() or client:GetCrookedCop() then
 				if role == ROLE_TRAITOR or role == ROLE_GLITCH then
 					surface.SetDrawColor(255, 0, 0, alpha)
 					surface.SetTextColor(255, 0, 0, alpha)
@@ -197,6 +197,9 @@ function RADAR:Draw(client)
 				elseif role == ROLE_ASSASSIN then
 					surface.SetDrawColor(112, 50, 0, alpha)
 					surface.SetTextColor(112, 50, 0, alpha)
+				elseif role == ROLE_CROOKEDCOP then
+					surface.SetDrawColor(153, 51, 102, alpha)
+					surface.SetTextColor(153, 51, 102, alpha)
 				elseif role == ROLE_JESTER or role == ROLE_SWAPPER or role == ROLE_CANNIBAL then
 					surface.SetDrawColor(180, 23, 253, alpha)
 					surface.SetTextColor(180, 23, 253, alpha)
@@ -222,7 +225,7 @@ function RADAR:Draw(client)
 					surface.SetTextColor(0, 255, 0, alpha)
 				end
 			else
-				if role == ROLE_DETECTIVE then
+				if role == ROLE_DETECTIVE or role == ROLE_CROOKEDCOP then
 					surface.SetDrawColor(0, 0, 255, alpha)
 					surface.SetTextColor(0, 0, 255, alpha)
 				else

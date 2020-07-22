@@ -43,6 +43,7 @@ local indicator_matswa_noz = Material("vgui/ttt/sprite_let_swa_noz")
 local indicator_matass_noz = Material("vgui/ttt/sprite_let_ass_noz")
 local indicator_matkil_noz = Material("vgui/ttt/sprite_let_kil_noz")
 local indicator_matcan_noz = Material("vgui/ttt/sprite_let_can_noz")
+local indicator_matcro_noz = Material("vgui/ttt/sprite_let_cro_noz")
 local indicator_mattra = Material("vgui/ttt/sprite_let_tra")
 local indicator_matjes = Material("vgui/ttt/sprite_let_jes")
 local indicator_mathyp = Material("vgui/ttt/sprite_let_hyp")
@@ -57,6 +58,7 @@ local indicator_matswa = Material("vgui/ttt/sprite_let_swa")
 local indicator_matass = Material("vgui/ttt/sprite_let_ass")
 local indicator_matkil = Material("vgui/ttt/sprite_let_kil")
 local indicator_matcan = Material("vgui/ttt/sprite_let_can")
+local indicator_matcro = Material("vgui/ttt/sprite_let_cro")
 
 local indicator_col = Color(255, 255, 255, 130)
 
@@ -86,6 +88,7 @@ function GM:PostDrawTranslucentRenderables()
 		indicator_matass_noz = Material("vgui/ttt/sprite_sym_ass_noz")
 		indicator_matkil_noz = Material("vgui/ttt/sprite_sym_kil_noz")
 		indicator_matcan_noz = Material("vgui/ttt/sprite_sym_can_noz")
+		indicator_matcro_noz = Material("vgui/ttt/sprite_sym_cro_noz")
 		indicator_mattra = Material("vgui/ttt/sprite_sym_tra")
 		indicator_matjes = Material("vgui/ttt/sprite_sym_jes")
 		indicator_mathyp = Material("vgui/ttt/sprite_sym_hyp")
@@ -100,6 +103,7 @@ function GM:PostDrawTranslucentRenderables()
 		indicator_matass = Material("vgui/ttt/sprite_sym_ass")
 		indicator_matkil = Material("vgui/ttt/sprite_sym_kil")
 		indicator_matcan = Material("vgui/ttt/sprite_sym_can")
+		indicator_matcro = Material("vgui/ttt/sprite_sym_cro")
 	else
 		indicator_mattra_noz = Material("vgui/ttt/sprite_let_tra_noz")
 		indicator_matjes_noz = Material("vgui/ttt/sprite_let_jes_noz")
@@ -115,6 +119,7 @@ function GM:PostDrawTranslucentRenderables()
 		indicator_matass_noz = Material("vgui/ttt/sprite_let_ass_noz")
 		indicator_matkil_noz = Material("vgui/ttt/sprite_let_kil_noz")
 		indicator_matcan_noz = Material("vgui/ttt/sprite_let_can_noz")
+		indicator_matcro_noz = Material("vgui/ttt/sprite_let_cro_noz")
 		indicator_mattra = Material("vgui/ttt/sprite_let_tra")
 		indicator_matjes = Material("vgui/ttt/sprite_let_jes")
 		indicator_mathyp = Material("vgui/ttt/sprite_let_hyp")
@@ -129,6 +134,7 @@ function GM:PostDrawTranslucentRenderables()
 		indicator_matass = Material("vgui/ttt/sprite_let_ass")
 		indicator_matkil = Material("vgui/ttt/sprite_let_kil")
 		indicator_matcan = Material("vgui/ttt/sprite_let_can")
+		indicator_matcro = Material("vgui/ttt/sprite_let_cro")
 	end
 	client = LocalPlayer()
 	plys = GetPlayers()
@@ -148,7 +154,17 @@ function GM:PostDrawTranslucentRenderables()
 				render.SetMaterial(indicator_matdet)
 				render.DrawQuadEasy(pos, dir, 8, 8, indicator_col, 180)
 			end
-			if revealed and client:GetRole() == ROLE_DETECTIVE then
+			if v:GetRole() == ROLE_CROOKEDCOP then
+				if (client:GetRole() == ROLE_TRAITOR or client:GetRole() == ROLE_HYPNOTIST or client:GetRole() == ROLE_ASSASSIN or client:GetRole() == ROLE_CROOKEDCOP or client:GetRole() == ROLE_VAMPIRE) then
+					render.SetMaterial(indicator_matcro)
+					render.DrawQuadEasy(pos, dir, 8, 8, indicator_col, 180)
+				else
+					render.SetMaterial(indicator_matdet)
+					render.DrawQuadEasy(pos, dir, 8, 8, indicator_col, 180)
+				end
+			end
+			
+			if revealed and (client:GetRole() == ROLE_DETECTIVE or client:GetRole() == ROLE_CROOKEDCOP) then
 				if v:GetRole() == ROLE_INNOCENT then
 					render.SetMaterial(indicator_matinn)
 					render.DrawQuadEasy(pos, dir, 8, 8, indicator_col, 180)
@@ -188,10 +204,13 @@ function GM:PostDrawTranslucentRenderables()
 				elseif v:GetRole() == ROLE_CANNIBAL then
 					render.SetMaterial(indicator_matcan)
 					render.DrawQuadEasy(pos, dir, 8, 8, indicator_col, 180)
+				elseif v:GetRole() == ROLE_CROOKEDCOP then
+					render.SetMaterial(indicator_matcro)
+					render.DrawQuadEasy(pos, dir, 8, 8, indicator_col, 180)
 				end
 			end
 			if not hide_roles then
-				if client:GetRole() == ROLE_TRAITOR or client:GetRole() == ROLE_HYPNOTIST or client:GetRole() == ROLE_VAMPIRE or client:GetRole() == ROLE_ASSASSIN then
+				if client:GetRole() == ROLE_TRAITOR or client:GetRole() == ROLE_HYPNOTIST or client:GetRole() == ROLE_VAMPIRE or client:GetRole() == ROLE_ASSASSIN or client:GetRole() == ROLE_CROOKEDCOP then
 					if v:GetRole() == ROLE_TRAITOR or v:GetRole() == ROLE_GLITCH then
 						render.SetMaterial(indicator_mattra_noz)
 						render.DrawQuadEasy(pos, dir, 8, 8, indicator_col, 180)
@@ -203,6 +222,9 @@ function GM:PostDrawTranslucentRenderables()
 						render.DrawQuadEasy(pos, dir, 8, 8, indicator_col, 180)
 					elseif v:GetRole() == ROLE_ASSASSIN then
 						render.SetMaterial(indicator_matass_noz)
+						render.DrawQuadEasy(pos, dir, 8, 8, indicator_col, 180)
+					elseif v:GetRole() == ROLE_CROOKEDCOP then
+						render.SetMaterial(indicator_matcro_noz)
 						render.DrawQuadEasy(pos, dir, 8, 8, indicator_col, 180)
 					elseif v:GetRole() == ROLE_JESTER or v:GetRole() == ROLE_SWAPPER or v:GetRole() == ROLE_CANNIBAL then
 						render.SetMaterial(indicator_matjes)
@@ -344,6 +366,7 @@ function GM:HUDDrawTargetID()
 	local target_swapper = false
 	local target_killer = false
 	local target_cannibal = false
+	local target_crookedcop = false
 	local target_fellow_traitor = false
 	local target_fellow_zombie = false
 	local target_current_target = false
@@ -383,7 +406,7 @@ function GM:HUDDrawTargetID()
 			_, color = util.HealthToString(ent:Health(), ent:GetMaxHealth())
 		end
 		local revealed = ent:GetNWBool('RoleRevealed', false)
-		if GetRoundState() == ROUND_ACTIVE and client:GetRole() == ROLE_DETECTIVE and revealed then
+		if GetRoundState() == ROUND_ACTIVE and (client:GetRole() == ROLE_DETECTIVE or client:GetRole() == ROLE_CROOKEDCOP) and revealed then
 			target_innocent = ent:IsRole(ROLE_INNOCENT)
 			target_glitch = ent:IsRole(ROLE_GLITCH)
 			target_mercenary = ent:IsRole(ROLE_MERCENARY)
@@ -397,8 +420,12 @@ function GM:HUDDrawTargetID()
 			target_swapper = ent:IsRole(ROLE_SWAPPER)
 			target_killer = ent:IsRole(ROLE_KILLER)
 			target_cannibal = ent:IsRole(ROLE_CANNIBAL)
+			target_crookedcop = ent:IsRole(ROLE_CROOKEDCOP)
 		end
-		if (client:GetRole() == ROLE_TRAITOR or client:GetRole() == ROLE_HYPNOTIST or client:GetRole() == ROLE_ZOMBIE or client:GetRole() == ROLE_VAMPIRE or client:GetRole() == ROLE_ASSASSIN) and GetRoundState() == ROUND_ACTIVE then
+		
+		target_detective = GetRoundState() > ROUND_PREP and (ent:GetRole() == ROLE_DETECTIVE or ent:GetRole() == ROLE_CROOKEDCOP) or false
+
+		if (client:GetRole() == ROLE_TRAITOR or client:GetRole() == ROLE_HYPNOTIST or client:GetRole() == ROLE_ZOMBIE or client:GetRole() == ROLE_VAMPIRE or client:GetRole() == ROLE_ASSASSIN or client:GetRole() == ROLE_CROOKEDCOP) and GetRoundState() == ROUND_ACTIVE then
 			target_fellow_traitor = ent:IsRole(ROLE_TRAITOR)
 			target_fellow_zombie = ent:IsRole(ROLE_ZOMBIE)
 			target_hypnotist = ent:IsRole(ROLE_HYPNOTIST)
@@ -406,12 +433,12 @@ function GM:HUDDrawTargetID()
 			target_jester = ent:IsRole(ROLE_JESTER) or ent:IsRole(ROLE_SWAPPER) or ent:IsRole(ROLE_CANNIBAL)
 			target_vampire = ent:IsRole(ROLE_VAMPIRE)
 			target_assassin = ent:IsRole(ROLE_ASSASSIN)
+			target_crookedcop = ent:IsRole(ROLE_CROOKEDCOP)
+			target_detective = ent:IsRole(ROLE_DETECTIVE)
 		end
 		if client:GetRole() == ROLE_ASSASSIN and GetRoundState() >= ROUND_ACTIVE then
 			target_current_target = (ent:Nick() == client:GetNWString("AssassinTarget", ""))
 		end
-		
-		target_detective = GetRoundState() > ROUND_PREP and (ent:GetRole() == ROLE_DETECTIVE) or false
 	
 	elseif cls == "prop_ragdoll" then
 		-- only show this if the ragdoll has a nick, else it could be a mattress
@@ -436,7 +463,7 @@ function GM:HUDDrawTargetID()
 	
 	local w, h = 0, 0 -- text width/height, reused several times
 	
-	if target_innocent or target_detective or target_glitch or target_mercenary or target_phantom or target_traitor or target_assassin or target_hypnotist or target_vampire or target_zombie or target_jester or target_swapper or target_killer or target_cannibal or target_fellow_traitor or target_fellow_zombie then
+	if target_innocent or target_detective or target_glitch or target_mercenary or target_phantom or target_traitor or target_assassin or target_hypnotist or target_vampire or target_zombie or target_jester or target_swapper or target_killer or target_cannibal or target_crookedcop or target_fellow_traitor or target_fellow_zombie then
 		surface.SetTexture(ring_tex)
 		
 		if target_innocent then
@@ -467,6 +494,8 @@ function GM:HUDDrawTargetID()
 			surface.SetDrawColor(50, 0, 70, 200)
 		elseif target_cannibal then
 			surface.SetDrawColor(176, 137, 54, 200)
+		elseif target_crookedcop then
+			surface.SetDrawColor(153, 51, 102, 200)
 		end
 		surface.DrawTexturedRect(x - 32, y - 32, 64, 64)
 	end
@@ -485,7 +514,7 @@ function GM:HUDDrawTargetID()
 		draw.SimpleText(text, font, x, y, color)
 		
 		-- for ragdolls searched by detectives, add icon
-		if ent.search_result and client:IsDetective() then
+		if ent.search_result and (client:IsDetective() or client:IsCrookedCop()) then
 			-- if I am detective and I know a search result for this corpse, then I
 			-- have searched it or another detective has
 			surface.SetMaterial(magnifier_mat)
@@ -599,6 +628,9 @@ function GM:HUDDrawTargetID()
 	elseif target_cannibal then
 		text = L.target_cannibal
 		clr = Color(176, 137, 54, 200)
+	elseif target_crookedcop then
+		text = L.target_crookedcop
+		clr = Color(153, 51, 102, 200)
 	elseif ent.sb_tag and ent.sb_tag.txt ~= nil then
 		text = L[ent.sb_tag.txt]
 		clr = ent.sb_tag.color
@@ -608,7 +640,7 @@ function GM:HUDDrawTargetID()
 	elseif target_fellow_zombie or (target_glitch and client:GetRole() == ROLE_ZOMBIE) then
 		text = L.target_fellow_zombie
 		clr = Color(69, 97, 0, 200)
-	elseif target_corpse and (client:IsActiveDetective() or client:IsActiveTraitor() or client:IsActiveMercenary() or client:IsActiveZombie() or client:IsActiveVampire() or client:IsActiveHypnotist() or client:IsActiveAssassin() or client:IsActiveKiller()) and CORPSE.GetCredits(ent, 0) > 0 then
+	elseif target_corpse and (client:IsActiveDetective() or client:IsActiveTraitor() or client:IsActiveMercenary() or client:IsActiveZombie() or client:IsActiveVampire() or client:IsActiveHypnotist() or client:IsActiveAssassin() or client:IsActiveCrookedCop() or client:IsActiveKiller()) and CORPSE.GetCredits(ent, 0) > 0 then
 		text = L.target_credits
 		clr = COLOR_YELLOW
 	end
