@@ -627,9 +627,13 @@ function TellTraitorsAboutTraitors()
 	local glitchnick = {}
 	local jesternick = {}
 	local killernick = {}
+	local crookedcopnick = {}
 	for k, v in pairs(player.GetAll()) do
 		if v:IsTraitor() or v:IsHypnotist() or v:IsVampire() or v:IsZombie() or v:IsAssassin() or v:IsCrookedCop() then
 			table.insert(traitornicks, v:Nick())
+			if v:IsCrookedCop() then
+				table.insert(crookedcopnick, v:Nick())
+			end
 		elseif v:IsGlitch() then
 			table.insert(traitornicks, v:Nick())
 			table.insert(glitchnick, v:Nick())
@@ -670,6 +674,12 @@ function TellTraitorsAboutTraitors()
 				end
 				names = string.sub(names, 1, -3)
 				LANG.Msg(v, "round_traitors_more", { names = names })
+			end
+		
+		else 
+			if table.Count(crookedcopnick) > 0 then
+				v:PrintMessage(HUD_PRINTTALK, "Don't trust the detectives.")
+				v:PrintMessage(HUD_PRINTCENTER, "Don't trust the detectives.")
 			end
 		end
 	end

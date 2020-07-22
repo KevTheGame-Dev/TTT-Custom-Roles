@@ -168,6 +168,7 @@ local function GetTextForRole(role)
 		local vampires = {}
 		local assassins = {}
 		local glitches = {}
+		local crookedcops = {}
 		for _, ply in pairs(player.GetAll()) do
 			if ply:IsTraitor() then
 				table.insert(traitors, ply)
@@ -183,6 +184,9 @@ local function GetTextForRole(role)
 			elseif ply:IsGlitch() then
 				table.insert(traitors, ply)
 				table.insert(glitches, ply)
+			elseif ply:IsCrookedCop() then
+				table.insert(traitors, ply)
+				table.insert(crookedcops, ply)
 			end
 		end
 		
@@ -205,6 +209,17 @@ local function GetTextForRole(role)
 					end
 				end
 				text = GetPTranslation("info_popup_traitor_hypnotist", { menukey = menukey, traitorlist = traitorlist, hypnotistlist = hypnotistlist })
+			
+			elseif #crookedcops > 0 then
+				local crookedcoplist = ""
+
+				for k, ply in pairs(crookedcops) do
+					if ply ~= LocalPlayer() then
+						crookedcoplist = crookedcoplist .. string.rep(" ", 42) .. ply:Nick() .. "\n"
+					end
+				end
+				text = GetPTranslation("info_popup_traitor_crookedcop", { menukey = menukey, traitorlist = traitorlist, crookedcoplist = crookedcoplist })
+
 			elseif #vampires > 0 then
 				local vampirelist = ""
 				
@@ -214,6 +229,7 @@ local function GetTextForRole(role)
 					end
 				end
 				text = GetPTranslation("info_popup_traitor_vampire", { menukey = menukey, traitorlist = traitorlist, vampirelist = vampirelist })
+
 			elseif #assassins > 0 then
 				local assassinlist = ""
 				
@@ -223,8 +239,10 @@ local function GetTextForRole(role)
 					end
 				end
 				text = GetPTranslation("info_popup_traitor_assassin", { menukey = menukey, traitorlist = traitorlist, assassinlist = assassinlist })
+
 			elseif #glitches > 0 then
 				text = GetPTranslation("info_popup_traitor_glitch", { menukey = menukey, traitorlist = traitorlist })
+
 			else
 				text = GetPTranslation("info_popup_traitor", { menukey = menukey, traitorlist = traitorlist })
 			end
