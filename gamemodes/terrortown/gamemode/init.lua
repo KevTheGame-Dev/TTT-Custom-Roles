@@ -1395,7 +1395,7 @@ function SelectRoles()
 	end
 
 	hasVamp = false
-	for n, p pairs(choices) do
+	for n, p in pairs(choices) do
 		if p:hasRole() == ROLE_VAMPIRE then
 			has_vamp = true
 		end
